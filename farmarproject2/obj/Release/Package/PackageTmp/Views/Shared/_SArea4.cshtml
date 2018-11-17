@@ -1,0 +1,38 @@
+﻿<head>
+    <style>
+        td.details-control {
+            background: url('@Url.Content("~/image/details_open.jpg")')no-repeat center center;
+            cursor: pointer;
+        }
+
+    tr.shown td.details-control {
+      background: url('@Url.Content("~/image/details_close.jpg")')no-repeat center center;
+
+        }
+    </style>
+</head>
+<h1 class="page-header">訂單管理</h1>
+
+<div class="row" style="margin:0;">
+
+    <div class="col-sm-11">
+        <table ellpadding="0" cellspacing="0" border="0" class="datatable table table-striped table-bordered" style="width:100%" id="DataTable1">
+            <thead>
+                <tr style="background-color:cornflowerblue;">
+                    <th></th>
+                    <th>訂單編號</th>
+                    <th>買家</th>
+                    <th>賣家</th>
+                    <th>總價格</th>
+                    <th>交易時間</th>
+                    <th>交易狀態</th>
+                    <th>修改</th>
+                </tr>
+            </thead>
+        </table>
+    </div>
+    <div class="col-sm-1"></div>
+</div>
+<script>
+    DetailRun();
+</script>

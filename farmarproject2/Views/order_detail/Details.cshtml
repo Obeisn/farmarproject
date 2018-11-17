@@ -1,0 +1,74 @@
+﻿@model farmarproject2.Models.order_detail
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>order_detail</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.productname)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.productname)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.quiantity)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.quiantity)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.build_time)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.build_time)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.total_price)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.total_price)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.productid)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.productid)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.buy_id)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.buy_id)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.order.buy_Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.order.buy_Name)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.order_detail_id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

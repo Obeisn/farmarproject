@@ -1,0 +1,235 @@
+﻿
+@{
+    ViewBag.Title = "瑪農是好農-最新鮮農產";
+    var i = 0;
+}
+
+
+
+<div id="my-carousel" class="carousel slide" data-ride="carousel">
+    <!-- Indicators -->
+    <ol class="carousel-indicators">
+        <li data-target="#my-carousel" data-slide-to="0" class="active"></li>
+        @foreach (var x in ViewBag.ad)
+        {
+            <li data-target="#my-carousel" data-slide-to="@i"></li>
+            i++;
+        }
+
+
+    </ol>
+
+    <!-- Wrapper for slides -->
+    <div class="carousel-inner" role="listbox">
+        <div class="item active">
+
+            <img style="width:100%;height:500px" src="~/image/0.jpg" />
+            <div class="carousel-caption">
+         
+            </div>
+        </div>
+        @foreach (var x in ViewBag.ad)
+        {
+            <div class="item">
+                <img style="width:100%;height:500px" src="@Url.Content("~/image/"+@x.advertisings)" />
+                <div class="carousel-caption">
+                </div>
+            </div>
+        }
+
+    </div>
+
+
+    <!-- Controls -->
+    <a class="left carousel-control" href="#my-carousel" role="button" data-slide="prev">
+        <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+        <span class="sr-only">Previous</span>
+    </a>
+    <a class="right carousel-control" href="#my-carousel" role="button" data-slide="next">
+        <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+        <span class="sr-only">Next</span>
+    </a>
+</div>
+<br />
+<br />
+
+<div class="row">
+
+    <div class="col-lg-2 side_collections clearfix hidden-xs hidden-sm">
+
+        <div id="categorylist" class="main-wrapper_left_inside_hf">
+            <div class="title_inside_list_hf ">
+            </div>
+            <div class="submenu_left_box_list">
+                <div class="Navigation">
+                    <!--類別導覽-->
+                    
+                    <div class="panel panel-success">
+                        <div class="panel-heading" style="font-size:20px;font-family:'Yu Gothic UI'">全站商品分類</div>
+                        <div class="panel-body">
+                            <ul class="list-group">
+                                <a onclick="toajax('肉類')" role="button">
+                                    <li class="list-group-item" style="font-size:20px;font-family:'Yu Gothic UI'">肉品肉類</li>
+                                </a>
+                                <a onclick="toajax('海鮮')" role="button">
+                                    <li class="list-group-item" style="font-size:20px;font-family:'Yu Gothic UI'">生猛海鮮</li>
+                                </a>
+                                <a onclick="toajax('蔬果')" role="button">
+                                    <li class="list-group-item" style="font-size:20px;font-family:'Yu Gothic UI'">素食蔬果</li>
+                                </a>
+                                <a onclick="toajax('五穀雜糧')" role="button">
+                                    <li class="list-group-item" style="font-size:20px;font-family:'Yu Gothic UI'">五穀雜糧</li>
+                                </a>
+                                <a onclick="toajax('調味品')" role="button">
+                                    <li class="list-group-item" style="font-size:20px;font-family:'Yu Gothic UI'">調味醬料</li>
+                                </a>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <br />
+                    <br />
+                    <div id="SalesRank">
+                        <!--銷售排行-->
+
+                        <div class="panel panel-primary">
+                            <div class="panel-heading" style="font-size:20px;font-family:'Yu Gothic UI'">全站銷售排行</div>
+                            <div class="panel-body">
+                                <a href="@Url.Action("Details","products",new { id=44})">  <img src="@Url.Action("photo","Home",new { id=44})" style="height:100px;width:100%" /></a>
+                                <b class="Name" style="font-family:'Yu Gothic UI'">安格斯雪花沙朗牛排</b>
+                                <b class="OnSalePrice" style="font-family:'Yu Gothic UI'">網路價550</b>
+                                <a href="@Url.Action("Details","products",new { id=45})"><img src="@Url.Action("photo","Home",new { id=45})" style="height:100px;width:100%" /></a>
+                                <b class="Name" style="font-family:'Yu Gothic UI'">極鮮日本丁香魚</b>
+                                <b class="OnSalePrice" style="font-family:'Yu Gothic UI'">網路價660</b>
+                                <a href="@Url.Action("Details","products",new { id=46})">
+                                    <img src="@Url.Action("photo","Home",new { id=46})" style="height:100px;width:100%" />
+                                </a>
+                                <b class="Name" style="font-family:'Yu Gothic UI'">霜降去骨牛小排</b>
+                                <b class="OnSalePrice" style="font-family:'Yu Gothic UI'">網路價440</b>
+                                <a href="@Url.Action("Details","products",new { id=38})">
+                                    <img src="@Url.Action("photo","Home",new { id=38})" style="height:100px;width:100%" />
+                                </a>
+                                <b class="Name" style="font-family:'Yu Gothic UI'">肥肥花枝</b>
+                                <b class="OnSalePrice">網路價65</b>
+                                <a href="@Url.Action("Details","products",new { id=47})">
+                                    <img src="@Url.Action("photo","Home",new { id=47})" style="height:150px;width:100%" />
+                                </a>
+                                <b class="Name" style="font-family:'Yu Gothic UI'">自然豬 小戰斧</b>
+                                <b class="OnSalePrice" style="font-family:'Yu Gothic UI'">網路價448</b>
+                            </div>
+                        </div>
+                        <div class="panel panel-warning">
+                            <div class="panel-heading" style="font-size:20px;font-family:'Yu Gothic UI'" >團購趣</div>
+                            <div class="panel-body">
+                                <a href="@Url.Action("showdetial","manybuy",new { id=2039})">
+                                    <img src="@Url.Action("showphoto","manybuy",new { id=80})" style="height:100px;width:100%" />
+                                </a>
+                                <p style="font-family:'Yu Gothic UI'">大螃蟹</p>
+                                <a href="@Url.Action("showdetial","manybuy",new { id=2037})">
+                                    <img src="@Url.Action("showphoto","manybuy",new { id=81})" style="height:100px;width:100%" />
+                                </a>
+                                <p style="font-family:'Yu Gothic UI'">台北喜來登大飯店辰園一共推出2款外帶年菜與5種伴手禮，農曆春節期間，要讓民眾自用暖心，走春送禮，表達真心誠意。</p>
+                        
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+
+
+
+
+
+    </div>
+
+
+
+
+
+
+
+
+    <div id="show" class="col-lg-10">
+        <img src="@Url.Content("~/image/126.gif")" id="Progress" style="display:none;align-items:center" />
+        @foreach (var item in Model)
+        {
+            if (item.category_multiple == "否")
+            {
+                <div class="col-sm-6 col-md-4">
+                    <div class="thumbnail" style="box-shadow:5px 2px 2px rgba(20%,20%,40%,0.6),4px 4px 6px rgba(20%,20%,40%,0.4),6px 6px 12px rgba(20%,20%,40%,0.4)">
+                        <img src="@Url.Action("photo","Home",new { id=item.productid})" style="height:250px;width:100%" />
+                        <div class="caption">
+                            <h3 style="font-family:'Yu Gothic UI'">@item.productname</h3>
+                            <h3 style="font-family:'Yu Gothic UI'">$@item.unitprice</h3>
+
+                            <p style="font-family:'Yu Gothic UI'">庫存數量: @item.unitstock</p>
+                            <p style="font-family:'Yu Gothic UI'">欲購買數量:<input value="1" id="@item.productid" name="quantity" type="number" max="@item.unitstock" min="0" /> </p>
+                            <p>
+                                <a onclick="aa(@item.productid,@item.productid)" href="javascript:void(0)" class="btn btn-danger " role="button" style="font-family:'Yu Gothic UI'">
+                                    <i class="fa fa-shopping-cart" aria-hidden="true"></i>加入購物車
+                                </a>
+                                @Html.ActionLink("詳細資料", "Details", "products", new { id = item.productid }, new { @class = "btn btn-primary", @style = "font-family:'Yu Gothic UI'" })
+                                
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            }
+
+        }
+    </div>
+</div>
+<div class="lds-css ng-scope hidden" id="showloading">
+    <div style="width:100%;height:100%" class="lds-facebook"><div></div><div></div><div></div></div>
+    
+</div>
+<img id="progress" src="~/image/126.gif" style="display:none"/>
+@section scripts{
+    <script>
+        var showloading = $('#showloading')
+        $(function () {
+            $("#show img").hover(img_hover_in, img_hover_out);
+             
+        });
+        
+        function img_hover_in() {
+            $(this).css("transform", "scale(1.07)").css("transition-duration", "0.1s");
+        }
+
+        function img_hover_out() {
+            $(this).css("transform", "scale(1)").css("transition-duration", "0.1s");
+        }
+
+       
+        
+        function aa(x, y) {
+            AddToCart(x, $("#" + y).val());
+        }
+
+        function toajax(x) {
+            showloading.show();
+            $.ajax({
+                type: "POST",
+                url: "@Url.Action("showcate","Home")",
+                data: { category: x }
+
+            }).done(function (data) {
+                $('#show').html(data);
+                $("#show img").hover(img_hover_in, img_hover_out);
+                showloading.hide();
+            }).fail(function (e) {
+                alert(e.responseText);
+            });
+        }
+
+
+     
+
+
+    </script>
+
+}

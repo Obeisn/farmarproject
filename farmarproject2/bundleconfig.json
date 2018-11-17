@@ -1,0 +1,62 @@
+[
+  {
+    "outputFileName": "taste-master/css/animate.min.css",
+    "inputFiles": [
+      "taste-master/css/animate.css"
+    ]
+  },
+  {
+    "outputFileName": "taste-master/css/magnific-popup.min.css",
+    "inputFiles": [
+      "taste-master/css/magnific-popup.css"
+    ]
+  },
+  {
+    "outputFileName": "taste-master/css/bootstrap-datepicker.min.css",
+    "inputFiles": [
+      "taste-master/css/bootstrap-datepicker.css"
+    ]
+  },
+  {
+    "outputFileName": "taste-master/css/jquery.timepicker.min.css",
+    "inputFiles": [
+      "taste-master/css/jquery.timepicker.css"
+    ]
+  },
+  {
+    "outputFileName": "taste-master/css/icomoon.min.css",
+    "inputFiles": [
+      "taste-master/css/icomoon.css"
+    ]
+  },
+  {
+    "outputFileName": "taste-master/css/style.min.css",
+    "inputFiles": [
+      "taste-master/css/style.css"
+    ]
+  },
+  {
+    "outputFileName": "taste-master/js/jquery.easing.1.3.min.js",
+    "inputFiles": [
+      "taste-master/js/jquery.easing.1.3.js"
+    ]
+  },
+  {
+    "outputFileName": "taste-master/js/bootstrap-datepicker.min.js",
+    "inputFiles": [
+      "taste-master/js/bootstrap-datepicker.js"
+    ]
+  },
+  {
+    "outputFileName": "taste-master/js/google-map.min.js",
+    "inputFiles": [
+      "taste-master/js/google-map.js"
+    ]
+  },
+  {
+    "outputFileName": "taste-master/js/main.min.js",
+    "inputFiles": [
+      "taste-master/js/main.js"
+    ]
+  }
+]

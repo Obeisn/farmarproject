@@ -1,0 +1,95 @@
+﻿@model farmarproject2.Models.product
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<form id="send" enctype="multipart/form-data">
+    @Html.AntiForgeryToken()
+    <div class="form-group">
+
+        @Html.LabelFor(model => model.productname, new { @class = "control-label" })
+        @Html.EditorFor(model => model.productname, new { htmlAttributes = new { @class = "form-control" } })
+
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.unitprice, htmlAttributes: new { @class = "control-label" })
+
+        @Html.EditorFor(model => model.unitprice, new { htmlAttributes = new { @class = "form-control" } })
+        @Html.ValidationMessageFor(model => model.unitprice, "", new { @class = "text-danger" })
+
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.unitstock, htmlAttributes: new { @class = "control-label" })
+
+        @Html.EditorFor(model => model.unitstock, new { htmlAttributes = new { @class = "form-control" } })
+        @Html.ValidationMessageFor(model => model.unitstock, "", new { @class = "text-danger" })
+    </div>
+
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.description, new { @class = "control-label" })
+        @Html.TextAreaFor(model => model.description, 4, 87, new { htmlAttributes = new { @class = "form-control" } })
+        @Html.ValidationMessageFor(model => model.description, "", new { @class = "text-danger" })
+    </div>
+
+
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.category, htmlAttributes: new { @class = "control-label" })
+
+        @Html.DropDownList("category", new SelectList(new[] { "肉類", "蔬果", "海鮮", "五穀雜糧", "調味品" }), "--請選擇--", new { @class = "form-control", @id = "categorylist" })
+        @Html.ValidationMessageFor(model => model.category, "", new { @class = "text-danger" })
+    </div>
+
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.category_multiple, htmlAttributes: new { @class = "control-label" })
+
+        @Html.RadioButtonFor(model => model.category_multiple, "是", new { @id = "chkyes" })是
+        @Html.RadioButtonFor(model => model.category_multiple, "否", new { @checked = "checked", @id = "chkno" })否
+        @Html.ValidationMessageFor(model => model.category_multiple, "", new { @class = "text-danger" })
+    </div>
+
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.picture, htmlAttributes: new { @class = "control-label" })
+
+        <img id="imgp" src="~/image/No-image-available.jpg" style="height:240px;width:320px" />
+        <input id="File1" name="File1" type="file" accept="image/*" multiple="multiple" value="照片1" />
+    </div>
+
+
+
+    <div class="form-group">
+        <button onclick="return AddItem();" class="btn btn-primary">
+            新增
+        </button>
+        <input class="btn btn-primary" onclick="return AddItemDEMO();" value="DEMO" />
+    </div>
+
+</form>
+
+
+<script>
+    function readURL(input) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+
+            reader.onload = function (e) {
+                $('#imgp').attr('src', e.target.result);
+            }
+            reader.readAsDataURL(input.files[0]);
+        }
+
+    }
+    $("#File1").change(function () {
+        readURL(this);
+    });
+
+
+</script>

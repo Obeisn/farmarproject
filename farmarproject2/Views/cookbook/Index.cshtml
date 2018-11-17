@@ -1,0 +1,25 @@
+﻿@model IEnumerable<farmarproject2.Models.cookbook>
+
+@{
+    ViewBag.Title = "Index";
+    Layout ="~/Views/Shared/_LayoutPorduct.cshtml";
+}
+<link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+<div class="text-center">
+    <img style="margin:20px auto;width:1000px;height:500px" src="~/image/123.jpg" />
+</div>
+<div class="row" style="margin:0 30%">
+    @foreach (var item in Model)
+    {
+        <div class="col-lg-4" style="width:200px;height:200px;margin:30px 15px;padding:0;text-align:center;border:3px solid #ffd800">
+            @Html.Raw(item.pircture)
+            @Html.ActionLink(item.cookbookname, "showcookbook", "cookbook",new { id=item.cookid},new { @style= "font-size:30px;font-family:微軟正黑體" })
+        </div>
+
+
+    }
+</div>
+
+
+
+

@@ -1,0 +1,116 @@
+﻿@model IEnumerable<farmarproject2.Models.order_detail>
+
+@{
+    ViewBag.Title = "Orders";
+    var currentcart = Carts.Models.Cart.Operation.GetCurrentCart();
+
+    var orderall = (from o in currentcart
+                    group o by o.sell_id into g
+                    select g).ToList();
+    decimal x = 0;
+    var y = "";
+
+
+
+
+}
+
+@section styles{
+
+    <link href="~/Content/themes/base/jquery-ui.min.css" rel="stylesheet" />
+    <link href="http://ajax.aspnetcdn.com/ajax/jquery.dataTables/1.9.4/css/jquery.dataTables.css" rel="stylesheet">
+}
+<div class="row">
+    <img src=@Url.Content("~/image/Register.jpg") style="height:300px;width:100%" />
+</div>
+<br />
+<br />
+<div class="row">
+    <table class="table-bordered " id="cartable" style="width:100%;font-family:'微軟正黑體'">
+        <thead></thead>
+        <tbody>
+            @foreach (var sell in orderall)/* 依賣場分類 */
+            {
+                x = 0;
+                <tr id="t1" style="background-color: rgb(156, 186, 95);border: 2px solid black;"><td>名稱</td><td>售價</td><td>數量</td><td>小計</td></tr>
+                foreach (var pd in sell) /* 使用foreach將所有商品列出 */
+                {
+                    <tr>
+                        <td>@pd.Name</td>
+                        <td>@pd.Price</td>
+                        <td>@pd.Quantity</td>
+                        <td>@pd.Amount</td>
+                    </tr>
+                    x += @pd.Amount;
+                    y = @pd.sell_id;
+                }
+                <tr><td colspan="2"></td><td>總計</td><td>@x</td></tr>
+                <tr>
+                    <td colspan="1"></td>
+                    <td><font size="4">賣場</font></td>
+                    <td valign="middle">@sell.Key</td>
+                    <td>
+
+                        <input id="toorders" type="button" onclick="PopupForm('@Url.Action("Index","Order",new {sell_id = @y })','購物人資訊',650,700)" style=" position:relative; left: 70px; z-index:1 " class="btn btn-default buttons-collection buttons-colvis btn-success" value="結帳">
+
+                    </td>
+                </tr>
+
+            }
+        </tbody>
+
+
+    </table>
+</div>
+<div>
+
+</div>
+
+@section scripts{
+
+
+
+
+
+
+
+    <script type="text/javascript" src="http://ajax.aspnetcdn.com/ajax/jquery.dataTables/1.9.4/jquery.dataTables.min.js"></script>
+    <script>
+
+        $(document).ready(function () {
+
+            function PopupForm(url, title, height, width) {
+                var formDiv = $('<div/>');
+                $.get(url)
+                    .done(function (response) {
+                        formDiv.html(response);
+
+                        Popup = formDiv.dialog({
+                            autoOpen: true,
+                            resizable: false,
+                            title: title,
+                            height: height,
+                            width: width,
+                            close: function () {
+                                Popup.dialog('destroy').remove();
+                            }
+
+                        });
+                    });
+            }
+
+
+
+
+        });
+        function adddemo() {
+            $('#buy_Name').val("小火龍");
+            $('#buy_phone').val("0951-548-762");
+            $('#buy_Address').val("台北市大安區復興南路2段");
+        }
+
+    </script>
+}
+
+
+

@@ -1,0 +1,96 @@
+﻿@model farmarproject2.Models.RegisterViewModel
+
+
+<div class="row" style="margin:100px 0">
+
+    <div class="col-lg-6">
+        <img style="width:100%;height:100%" src="~/image/Register.jpg" />
+    </div>
+    <div class="col-lg-5" style="border:2px solid #ffd800">
+        @using (Html.BeginForm("Register", "Account", FormMethod.Post, new { @class = "form-horizontal", role = "form", @enctype = "multipart/form-data" }))
+        {
+            @Html.AntiForgeryToken()
+            <h4>Welcome~新鮮果農人</h4>
+            <hr />
+            @Html.ValidationSummary("", new { @class = "text-danger" })
+            <div class="form-group">
+                @Html.LabelFor(m => m.FamName, new { @class = "col-md-2 control-label" })
+                <div class="col-md-10">
+                    @Html.TextBoxFor(m => m.FamName, new { @class = "form-control" })
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(m => m.Email, new { @class = "col-md-2 control-label" })
+                <div class="col-md-10">
+                    @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(m => m.Password, new { @class = "col-md-2 control-label" })
+                <div class="col-md-10">
+                    @Html.PasswordFor(m => m.Password, new { @class = "form-control" })
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(m => m.ConfirmPassword, new { @class = "col-md-2 control-label" })
+                <div class="col-md-10">
+                    @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control" })
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(m => m.PhoneNumber, new { @class = "col-md-2 control-label" })
+                <div class="col-md-10">
+                    @Html.TextBoxFor(m => m.PhoneNumber, new { @class = "form-control" })
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(m => m.UserIg, new { @class = "col-md-2 control-label" })
+                <div class="col-md-10">
+                    <img id="imgp" src=@Url.Content("~/image/No-image-available.jpg") style="width:320px;height:240px;">
+                    <input type="file" name="File1" id="File1" accept="image/*" />
+
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" class="btn btn-default" value="註冊" />
+                </div>
+                <div class="col-md-offset-2 col-md-2">
+                    <input type="button" class="btn btn-default" value="DEMO1" id="DEMO1" />
+                </div>
+            </div>
+        }
+    </div>
+</div>
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+<script>
+    $(document).ready(function () {
+        $("#DEMO1").click(fastregitster);
+    }
+    )
+    function fastregitster() {
+       
+        $("#Email").val("msit119test@gmail.com");
+    
+    $("#FamName").val("小火龍");
+    $("#PhoneNumber").val("0951548762");
+    $("#Password").val("Aa123456!");
+    $("#ConfirmPassword").val("Aa123456!");
+}
+function readURL(input) {
+    if (input.files && input.files[0]) {
+        var reader = new FileReader();
+
+        reader.onload = function (e) {
+            $('#imgp').attr('src', e.target.result);
+        }
+        reader.readAsDataURL(input.files[0]);
+    }
+
+}
+$("#File1").change(function () {
+    readURL(this);
+});
+</script>
+}

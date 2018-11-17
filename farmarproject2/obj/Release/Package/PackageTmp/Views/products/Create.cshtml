@@ -1,0 +1,203 @@
+﻿@model farmarproject2.Models.product
+
+@{
+    var productLabels = Json.Encode(ViewBag.ProductLabes);
+    var productData = Json.Encode(ViewBag.ProductData);
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = "Create";
+}
+@section styles{
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <link href="~/Content/dashboard.css" rel="stylesheet" />
+    <link href="~/Content/Service.css" rel="stylesheet" />
+    
+
+}
+
+<div class="row">
+    @using (Html.BeginForm("Create", "products", FormMethod.Post, new { @enctype = "multipart/form-data" }))
+    {
+        @Html.AntiForgeryToken()
+        <div class="row" style="text-align:center;margin:10px; ">
+            <div class="col-lg-5" style="">
+                <div>
+                    <img id="preview0" src="~/image/No-image-available.jpg" style="height:350px;width:450px" />
+                    <input id="File1" name="File1" type="file" accept="image/*" multiple="multiple" value="照片1" />
+                </div>
+                <div style="margin-top:50px" class="row">
+
+                    <canvas id="salechaet" width="200" height="180"></canvas>
+
+
+
+
+                </div>
+            </div>
+            <div class="col-lg-2">
+
+            </div>
+            <div class="col-lg-5" style="">
+                <p style="text-align:left;font-size:20px;font-family:微軟正黑體">
+                    @Html.LabelFor(model => model.productname)
+                    @Html.EditorFor(model => model.productname, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.productname, "")
+
+                </p>
+                <p style="text-align:left;font-size:20px;font-family:微軟正黑體">
+                    @Html.LabelFor(model => model.unitprice)
+                    @Html.EditorFor(model => model.unitprice, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.unitprice, "", new { @class = "text-danger" })
+
+                </p>
+                <p style="text-align:left;font-size:20px;font-family:微軟正黑體">
+                    @Html.LabelFor(model => model.unitstock)
+
+                    @Html.EditorFor(model => model.unitstock, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.unitstock, "", new { @class = "text-danger" })
+
+                </p>
+                <p style="text-align:left;font-size:20px;font-family:微軟正黑體">
+                    @Html.LabelFor(model => model.category)
+                    @Html.DropDownList("category", new SelectList(new[] { "肉類", "海鮮", "蔬果", "五穀雜糧", "調味品" }), "--請選擇--", new { @class = "form-control", @id = "categorylist" })
+                    @Html.ValidationMessageFor(model => model.category, "", new { @class = "text-danger" })
+                </p>
+                <p style="text-align:left;font-size:20px;font-family:微軟正黑體">
+                    @Html.LabelFor(model => model.category_multiple, new { htmlAttributes = new { @class = "form-control" } })
+                </p>
+                <p style="text-align:left;font-size:20px;font-family:微軟正黑體">
+                    @Html.RadioButtonFor(model => model.category_multiple, "是", new { @id = "chkyes", @style = "font-family:'微軟正黑體'" })是
+                    @Html.RadioButtonFor(model => model.category_multiple, "否", new { @checked = "checked", @id = "chkno", @style = "font-family:'微軟正黑體'" })否
+                    @Html.ValidationMessageFor(model => model.category_multiple, "", new { @class = "text-danger" })
+                </p>
+                <p style="text-align:left;font-size:25px;">
+                    @Html.LabelFor(model => model.description, new { @style = "font-family:'微軟正黑體'" })
+                </p>
+                <p style="text-align:left;font-size:15px;">
+                    @Html.TextAreaFor(model => model.description, 4, 87, new { @style = "width:800px;height:250px" })
+                    @Html.ValidationMessageFor(model => model.description, "", new { @class = "text-danger" })
+                </p>
+                <p style="text-align:left;font-size:15px;">
+                    <input type="submit" value="刊登商品" class="btn btn-primary btn-sm" style="font-family:'微軟正黑體'" />
+                    @Html.ActionLink("回首頁", "homepage", "Home", null, new { @class = "btn btn-primary btn-sm", @style = "font-family:'微軟正黑體'" })
+                    <button type="button" onclick="aaa()" class="btn btn-primary btn-sm">demo</button>
+                </p>
+            </div>
+        </div>
+
+    }
+</div>
+
+
+
+@section Scripts {
+    <script src="~/Scripts/jquery-3.3.1.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script src="~/Scripts/Chart.min.js"></script>
+
+
+    @Scripts.Render("~/bundles/jqueryval")
+    <script>
+        $(document).ready(function () {
+            CallChartproduct();
+        });
+      
+              function CallChartproduct() {
+             $.ajax({
+                 type: "GET",
+                 url: "@Url.Action("getproductchart", "products")",
+                 processData: false,
+                 contentType: false,
+                 cache: false,
+                 async: false,
+                 dataType: 'json'
+             })
+                 .done(function (done) {
+                     Chartdoproduct(done);
+                 }).fail(function (err) {
+                     alert(err.responseText)
+                 });
+
+    }
+        function Chartdoproduct(data) {
+            var ctx = document.getElementById("salechaet");
+            var chart = new Chart(ctx, {
+                type: 'pie',
+                data: {
+                    labels: ["肉類", "海鮮", "蔬果", "調味品", "五穀雜糧"],
+                    datasets: [{
+                        label: "Population (millions)",
+                        backgroundColor: ["#3e95cd", "#8e5ea2", "#3cba9f", "#e8c3b9", "#c45850"],
+                        data: data
+                    }]
+                },
+                options: {
+                    title: {
+                        display: true,
+                        text: '銷售比重分析'
+                    }
+                }
+            });
+        }
+
+      
+
+        function reload(input) {
+
+            for (var i = 0; i < 2; i++) {
+                if (input.files && input.files[i]) {
+
+                    var reader = new FileReader();
+                    reader.onload = function (e) {
+                        $('#preview' + 0).attr("src", e.target.result);
+                    };
+                    reader.readAsDataURL(input.files[0]);
+
+                    var reader1 = new FileReader();
+                    reader1.onload = function (e) {
+                        $('#preview' + 1).attr("src", e.target.result);
+                    }
+                    reader1.readAsDataURL(input.files[1]);
+
+                    var reader2 = new FileReader();
+                    reader2.onload = function (e) {
+                        $('#preview' + 2).attr("src", e.target.result);
+                    }
+                    reader2.readAsDataURL(input.files[2]);
+                }
+            }
+        }
+        function toajax() {
+            $.ajax({
+                type: "GET",
+                url: "http://192.168.35.9/farmarproject2/mycustompage.htm?aspxerrorpath=/farmarproject2/dataanalycs.aspx"
+
+
+            }).done(function (data) {
+                $('#dataany').html(data);
+            }).fail(function (err) {
+                alert(err.responseText);
+            });
+        }
+
+
+
+
+        $('#File1').change(function () {
+            reload(this);
+
+        });
+
+
+
+
+        function aaa() {
+            $("#productname").val("大大的牛肉")
+            $("#unitprice").val("55")
+            $("#unitstock").val("200")
+            $("#description").val("煮湯、香煎、紅燒都美味！安格斯NG牛肉，嚴選上好的黑牛原塊肉品，雖然賣相不佳、切取不公整，但品質口感仍然一流，並且以更實惠的價格可購得！每隻安格斯牛都是以天然穀物飼養，不打生長激素，因此肉質鮮嫩多汁、油脂豐美，絕對是小家庭享用高檔料理的省錢首選")
+
+        }
+
+
+    </script>
+}

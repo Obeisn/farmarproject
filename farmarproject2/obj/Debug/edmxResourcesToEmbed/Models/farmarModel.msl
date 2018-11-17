@@ -1,0 +1,203 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="farmarModelStoreContainer" CdmEntityContainer="farmarEntities1">
+    <EntitySetMapping Name="multi_buy_list">
+      <EntityTypeMapping TypeName="farmarModel.multi_buy_list">
+        <MappingFragment StoreEntitySet="multi_buy_list">
+          <ScalarProperty Name="multi_buy_list_id" ColumnName="multi_buy_list_id" />
+          <ScalarProperty Name="multi_buy_id" ColumnName="multi_buy_id" />
+          <ScalarProperty Name="join_id" ColumnName="join_id" />
+          <ScalarProperty Name="amount" ColumnName="amount" />
+          <ScalarProperty Name="deadine" ColumnName="deadine" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="multi_buy">
+      <EntityTypeMapping TypeName="farmarModel.multi_buy">
+        <MappingFragment StoreEntitySet="multi_buy">
+          <ScalarProperty Name="maxamount" ColumnName="maxamount" />
+          <ScalarProperty Name="deadline" ColumnName="deadline" />
+          <ScalarProperty Name="raise_time" ColumnName="raise_time" />
+          <ScalarProperty Name="productid" ColumnName="productid" />
+          <ScalarProperty Name="raiser_id" ColumnName="raiser_id" />
+          <ScalarProperty Name="multi_buy_name" ColumnName="multi_buy_name" />
+          <ScalarProperty Name="multi_buy_id" ColumnName="multi_buy_id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ServiceLogins">
+      <EntityTypeMapping TypeName="farmarModel.ServiceLogin">
+        <MappingFragment StoreEntitySet="ServiceLogin">
+          <ScalarProperty Name="ContentA" ColumnName="ContentA" />
+          <ScalarProperty Name="Type" ColumnName="Type" />
+          <ScalarProperty Name="LoginTime" ColumnName="LoginTime" />
+          <ScalarProperty Name="State" ColumnName="State" />
+          <ScalarProperty Name="userID" ColumnName="userID" />
+          <ScalarProperty Name="id" ColumnName="id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="AspNetRoles">
+      <EntityTypeMapping TypeName="farmarModel.AspNetRole">
+        <MappingFragment StoreEntitySet="AspNetRoles">
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="AspNetUserClaims">
+      <EntityTypeMapping TypeName="farmarModel.AspNetUserClaim">
+        <MappingFragment StoreEntitySet="AspNetUserClaims">
+          <ScalarProperty Name="ClaimValue" ColumnName="ClaimValue" />
+          <ScalarProperty Name="ClaimType" ColumnName="ClaimType" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="AspNetUserLogins">
+      <EntityTypeMapping TypeName="farmarModel.AspNetUserLogin">
+        <MappingFragment StoreEntitySet="AspNetUserLogins">
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="ProviderKey" ColumnName="ProviderKey" />
+          <ScalarProperty Name="LoginProvider" ColumnName="LoginProvider" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="AspNetUsers">
+      <EntityTypeMapping TypeName="farmarModel.AspNetUser">
+        <MappingFragment StoreEntitySet="AspNetUsers">
+          <ScalarProperty Name="UserName" ColumnName="UserName" />
+          <ScalarProperty Name="AccessFailedCount" ColumnName="AccessFailedCount" />
+          <ScalarProperty Name="LockoutEnabled" ColumnName="LockoutEnabled" />
+          <ScalarProperty Name="LockoutEndDateUtc" ColumnName="LockoutEndDateUtc" />
+          <ScalarProperty Name="TwoFactorEnabled" ColumnName="TwoFactorEnabled" />
+          <ScalarProperty Name="PhoneNumberConfirmed" ColumnName="PhoneNumberConfirmed" />
+          <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+          <ScalarProperty Name="SecurityStamp" ColumnName="SecurityStamp" />
+          <ScalarProperty Name="PasswordHash" ColumnName="PasswordHash" />
+          <ScalarProperty Name="EmailConfirmed" ColumnName="EmailConfirmed" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="UserIg" ColumnName="UserIg" />
+          <ScalarProperty Name="FamName" ColumnName="FamName" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <AssociationSetMapping Name="AspNetUserRoles" TypeName="farmarModel.AspNetUserRoles" StoreEntitySet="AspNetUserRoles">
+      <EndProperty Name="AspNetUser">
+        <ScalarProperty Name="Id" ColumnName="UserId" />
+      </EndProperty>
+      <EndProperty Name="AspNetRole">
+        <ScalarProperty Name="Id" ColumnName="RoleId" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <EntitySetMapping Name="ServiceAccounts">
+      <EntityTypeMapping TypeName="farmarModel.ServiceAccount">
+        <MappingFragment StoreEntitySet="ServiceAccount">
+          <ScalarProperty Name="Psword" ColumnName="Psword" />
+          <ScalarProperty Name="Account" ColumnName="Account" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="cookbooks">
+      <EntityTypeMapping TypeName="farmarModel.cookbook">
+        <MappingFragment StoreEntitySet="cookbook">
+          <ScalarProperty Name="text" ColumnName="text" />
+          <ScalarProperty Name="pircture" ColumnName="pircture" />
+          <ScalarProperty Name="description" ColumnName="description" />
+          <ScalarProperty Name="food" ColumnName="food" />
+          <ScalarProperty Name="cookbookname" ColumnName="cookbookname" />
+          <ScalarProperty Name="cookid" ColumnName="cookid" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="C__MigrationHistory">
+      <EntityTypeMapping TypeName="farmarModel.C__MigrationHistory">
+        <MappingFragment StoreEntitySet="__MigrationHistory">
+          <ScalarProperty Name="ProductVersion" ColumnName="ProductVersion" />
+          <ScalarProperty Name="Model" ColumnName="Model" />
+          <ScalarProperty Name="ContextKey" ColumnName="ContextKey" />
+          <ScalarProperty Name="MigrationId" ColumnName="MigrationId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="sysdiagrams">
+      <EntityTypeMapping TypeName="farmarModel.sysdiagram">
+        <MappingFragment StoreEntitySet="sysdiagrams">
+          <ScalarProperty Name="definition" ColumnName="definition" />
+          <ScalarProperty Name="version" ColumnName="version" />
+          <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+          <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+          <ScalarProperty Name="name" ColumnName="name" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="advertisings">
+      <EntityTypeMapping TypeName="farmarModel.advertising">
+        <MappingFragment StoreEntitySet="advertising">
+          <ScalarProperty Name="advertisings" ColumnName="advertisings" />
+          <ScalarProperty Name="id" ColumnName="id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="order_detail">
+      <EntityTypeMapping TypeName="farmarModel.order_detail">
+        <MappingFragment StoreEntitySet="order_detail">
+          <ScalarProperty Name="status" ColumnName="status" />
+          <ScalarProperty Name="category" ColumnName="category" />
+          <ScalarProperty Name="sell_id" ColumnName="sell_id" />
+          <ScalarProperty Name="productid" ColumnName="productid" />
+          <ScalarProperty Name="total_price" ColumnName="total_price" />
+          <ScalarProperty Name="quiantity" ColumnName="quiantity" />
+          <ScalarProperty Name="productname" ColumnName="productname" />
+          <ScalarProperty Name="order_id" ColumnName="order_id" />
+          <ScalarProperty Name="order_detail_id" ColumnName="order_detail_id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="orders">
+      <EntityTypeMapping TypeName="farmarModel.order">
+        <MappingFragment StoreEntitySet="order">
+          <ScalarProperty Name="date" ColumnName="date" />
+          <ScalarProperty Name="status" ColumnName="status" />
+          <ScalarProperty Name="sell_id" ColumnName="sell_id" />
+          <ScalarProperty Name="build_time" ColumnName="build_time" />
+          <ScalarProperty Name="order_category" ColumnName="order_category" />
+          <ScalarProperty Name="buy_Address" ColumnName="buy_Address" />
+          <ScalarProperty Name="buy_Phone" ColumnName="buy_Phone" />
+          <ScalarProperty Name="buy_id" ColumnName="buy_id" />
+          <ScalarProperty Name="buy_Name" ColumnName="buy_Name" />
+          <ScalarProperty Name="order_id" ColumnName="order_id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="comments">
+      <EntityTypeMapping TypeName="farmarModel.comment">
+        <MappingFragment StoreEntitySet="comment">
+          <ScalarProperty Name="ProductID" ColumnName="ProductID" />
+          <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+          <ScalarProperty Name="Contents" ColumnName="Contents" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="id" ColumnName="id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="products">
+      <EntityTypeMapping TypeName="farmarModel.product">
+        <MappingFragment StoreEntitySet="product">
+          <ScalarProperty Name="sale" ColumnName="sale" />
+          <ScalarProperty Name="user_email" ColumnName="user_email" />
+          <ScalarProperty Name="category_multiple" ColumnName="category_multiple" />
+          <ScalarProperty Name="category" ColumnName="category" />
+          <ScalarProperty Name="picture" ColumnName="picture" />
+          <ScalarProperty Name="description" ColumnName="description" />
+          <ScalarProperty Name="unitstock" ColumnName="unitstock" />
+          <ScalarProperty Name="unitprice" ColumnName="unitprice" />
+          <ScalarProperty Name="productname" ColumnName="productname" />
+          <ScalarProperty Name="productid" ColumnName="productid" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

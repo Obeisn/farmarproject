@@ -1,0 +1,156 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>碼農是好農-蔬菜ㄉ家</title>
+    @Styles.Render("~/Content/css")
+    @Styles.Render("~/bundles/bootstraphome")
+    @Scripts.Render("~/bundles/modernizr")
+    @Scripts.Render("~/bundles/homepage")
+    @RenderSection("styles", false)
+    <style>
+        .dropbtn {
+            color: white;
+            padding: 16px;
+            font-size: 16px;
+            border: none;
+            cursor: pointer;
+        }
+
+        /* The container <div> - needed to position the dropdown content */
+        .dropdown {
+            position: relative;
+            display: inline-block;
+        }
+
+        /* Dropdown Content (Hidden by Default) */
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: #f9f9f9;
+            min-width: 160px;
+            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+            z-index: 1;
+            right: 0;
+        }
+
+            /* Links inside the dropdown */
+            .dropdown-content a {
+                color: black;
+                padding: 12px 16px;
+                text-decoration: none;
+                display: block;
+            }
+
+                /* Change color of dropdown links on hover */
+                .dropdown-content a:hover {
+                    background-color: #f1f1f1
+                }
+
+        /* Show the dropdown menu on hover */
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+
+        /* Change the background color of the dropdown button when the dropdown content is shown */
+        .dropdown:hover .dropbtn {
+        }
+    </style>
+    <script type="text/javascript">
+
+
+
+        function AddToCart(productId, quantity) {
+            var a = parseInt($('input.abc').val());
+            //alert(quantity);
+            $.ajax({
+                type: 'POST',
+                url: '@Url.Action("AddToCart", "Cart")',
+                data: { id: productId, quantity: quantity }
+            })
+                .done(function (msg) {
+
+                    $('li#Cart').html(msg);
+                });
+        }
+
+
+        function RemoveFromCart(productId) {
+            $.ajax({
+                type: 'POST',
+                url: '@Url.Action("RemoveFromCart", "Cart")',
+                data: { id: productId }
+            })
+                .done(function (msg) {
+                    //將回傳的購物車頁面 填入 li#Cart
+                    $('li#Cart').html(msg);
+                });
+        }
+
+        //清空購物車內所有商品
+        function ClearCart() {
+            $.ajax({
+                type: 'POST',
+                url: '@Url.Action("ClearCart", "Cart")',
+                data: {}
+            })
+            .done(function (msg) {
+                //將回傳的購物車頁面 填入 li#Cart
+                $('li#Cart').html(msg);
+            });
+        }
+
+    </script>
+</head>
+<body style="width:100%">
+    <div style="background-color:white;  position:fixed; top:0px; width:100% ;z-index:1;border-bottom:1px black solid;">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a href="@Url.Action("home","Home")">
+                    <img class="dropbtn" style=" border-radius: 50%;height:55px; width:55px;" src=@Url.Content("~/image/logo.jpg") />
+                </a>
+            </div>
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                    <li>@Html.ActionLink("首頁", "Index", "Home", null, new { @style = "color:black;font-family:'微軟正黑體'" })</li>
+                    <li>@Html.ActionLink("刊登商品", "Create", "products", null, new { @style = "color:black;font-family:'微軟正黑體'" })</li>
+                
+                    <li>@Html.ActionLink("特色料理", "Index", "cookbook", null, new { @style = "color:black;font-family:'微軟正黑體'" })</li>
+                    <li id="lia" class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" style="color:black;font-family:'微軟正黑體'">
+                            團購
+                            <div class="caret"></div>
+                        </a>
+                        <ul id="ula" class="dropdown-menu">
+                            <li>@Html.ActionLink("發起團購", "show", "products", null, new { @style = "font-family:'微軟正黑體'" })</li>
+                            <li>@Html.ActionLink("加入團購", "showmanybuy", "manybuy", null, new { @style = "font-family:'微軟正黑體'" })</li>
+                        </ul>
+                    </li>
+
+                    @*<li>@Html.ActionLink("我的訂單", "Orders", new {  Controller = "Order" })</li>*@
+                </ul>
+                @Html.Partial("_LoginPartial")
+            </div>
+        </div>
+    </div>
+    <div style="margin-top:0px 200px">
+        @RenderBody()
+        <hr />
+        @*<footer>
+                <p>&copy; @DateTime.Now.Year - 我的 ASP.NET 應用程式</p>
+            </footer>*@
+    </div>
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @Scripts.Render("~/bundles/logins")
+    @RenderSection("scripts", required: false)
+</body>
+</html>

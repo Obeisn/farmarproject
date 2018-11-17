@@ -1,0 +1,219 @@
+﻿@model IEnumerable<farmarproject2.Models.product>
+
+@{
+    ViewBag.Title = "我的賣場";
+}
+
+@section styles{
+    <!-- DataTables CSS -->
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/Content/DataTables/css/jquery.dataTables.min.css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.3.1/semantic.min.css" rel="stylesheet" />
+    <link href="https://cdn.datatables.net/1.10.19/css/dataTables.semanticui.min.css" rel="stylesheet" />
+    <link href="~/Content/DataTables/css/dataTables.checkboxes.css" rel="stylesheet" />
+    <link href="~/Content/themes/base/jquery-ui.min.css" rel="stylesheet" />
+
+    <!-- DataTables style -->
+    <style>
+        table.dataTable thead tr {
+            color: white;
+            background-color: #30b752;
+        }
+
+        td.details-control {
+            background: url('@Url.Content("~/image/soldDetails_open.jpg")')no-repeat center center;
+            cursor: pointer;
+        }
+
+       tr.shown td.details-control {
+         background: url('@Url.Content("~/image/soldDetails_close.jpg")')no-repeat center center;
+        }
+    </style>
+}
+
+@{
+    AjaxOptions options = new AjaxOptions();
+    options.HttpMethod = "POST";
+    options.OnFailure = "OnFailure";
+    options.OnSuccess = "OnSuccess";
+}
+
+@using (Ajax.BeginForm("FormDelete", "UserAccount", options, new { @class = "form-horizontal" }))
+{
+    @Html.AntiForgeryToken()
+    <div>
+        <div class="panel-heading">
+            <br />
+            <br />
+            <br />
+        </div>
+        <!-- DataTables -->
+        <div>
+            <table id="example" class="display" cellspacing="0" style="width:100%">
+                <thead>
+                    <tr>
+                        <th></th>
+                        <th style="text-align:center">
+                            <input onchange="EnableDeleteButton()" type="checkbox" id="selectall" />
+                        </th>
+                        <th style="width:33px; text-align:center">編號</th>
+                        <th style="width:48px; text-align:center">類別</th>
+                        <th style="width:128px; text-align:center">品名</th>
+                        <th style="width:33px; text-align:center">價格</th>
+                        <th style="width:33px; text-align:center">庫存</th>
+                        <th style="text-align:center">描述</th>
+                        <th style="text-align:center"></th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+                <tfoot></tfoot>
+            </table>
+        </div>
+        <div>
+            <button id="btnDelete" style="display: none" class="btn btn-danger btn-lg" type="submit" onclick="return confirm('確定要刪除嗎？');"><i class="fa fa-trash-o fa-lg fa-fw"></i>刪除商品</button>
+        </div>
+    </div>
+}
+
+@section scripts{
+    <!-- DataTables js -->
+    <script src="~/Scripts/jquery-3.3.1.js"></script>
+    <script src="~/Scripts/bootstrap.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.19/js/dataTables.semanticui.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.3.1/semantic.min.js"></script>
+    <script src="~/Scripts/DataTables/dataTables.checkboxes.min.js"></script>
+
+    <!-- DataTables -->
+    <script>
+        function format(data) {
+        // 'data' is the original data object for the row
+        return '<table cellpadding="5" cellspacing="0" border="0" style="padding-left:50px;">' +
+            '<tr>' +
+            '<td>商品圖：</td>' +
+            '<td>' + '<img style="height:300px; width:300px" src="@Url.Action("ShowPicture", "UserAccount")/' + data.productid + '" title="' + data.productname + '"/>' + '</td>' +
+            '</tr>' +
+            '</table>';
+        };
+        $(document).ready(function () {
+            var table = $('#example').DataTable({
+                "language": { "url": "@Url.Content("~/Scripts/DataTables/i18n/Chinese-traditional.json")" },           //語言檔
+                "ajax": {
+                    "url": "@Url.Action("SoldDetailsJSON", "UserAccount")",
+                    'dataType': "json",
+                    "type": "GET"
+                },
+                "serverSide": false,
+                "bStateSave": true,         // 狀態保存
+                "lengthMenu": [
+                    [5, 10, 20, 35, -1],
+                    [5, 10, 20, 35, "All"]
+                ],          // 每頁顯示數據量
+                "columns": [
+                    {
+                        "className": 'details-control',
+                        "searchable": false,
+                        "orderable": false,
+                        "data": null,
+                        "sName": "productid",
+                        "defaultContent": ''
+                    },
+                    {
+                        "data": "productid",
+                        "sName": "productid",
+                        "orderable": false,
+                        "render": function (data, type, row, meta) {
+                            var s = '<input type="checkbox" onclick="EnableDeleteButton()" name="IDChecked" value="' + data + '"/><input name="productid" type="hidden" value="' + data + '"/>';
+                            return s;
+                        }
+                    },
+                    { "data": "Number" },
+                    { "data": "category" },
+                    { "data": "productname" },
+                    { "data": "unitprice" },
+                    { "data": "unitstock" },
+                    { "data": "description" },
+                    {
+                        "title": "功能",
+                        "data": "productid",
+                        "render": function (data) { return "<a class='btn btn-success btn-lg' onclick=PopupForm('@Url.Action("ItemEditView", "UserAccount")/" + data + "','商品更改',650,700)>修改</a>"; }
+                    }
+                ],
+                "select": {
+                    "style": "multi",
+                    "selector": "td:not(:first-child)"
+                },
+                "columnDefs": [
+                    { "bSortable": false, "aTargets": [0, 1, 7, 8] },         // 不排序
+                    { "className": "dt-head-center", "aTargets": -1 },
+                    { "className": "dt-body-center", "aTargets": [1, 2, 3, 4] },
+                    { "className": "dt-body-right", "aTargets": [5, 6] },         // 文字靠右
+                    { "className": "dt-body-left", "aTargets": [7] },
+                ],
+                "order": [[2, "asc"]]           // 預設排序
+            });
+            // Add event listener for opening and closing details
+            $('#example tbody').on('click', 'td.details-control', function () {
+                var tr = $(this).closest('tr');
+                var row = table.row(tr);
+
+                if (row.child.isShown()) {
+                    // This row is already open - close it
+                    row.child.hide();
+                    tr.removeClass('shown');
+                }
+                else {
+                    // Open this row
+                    row.child(format(row.data())).show();
+                    tr.addClass('shown');
+                }
+            });
+        });
+        // 批量刪除
+        $("#selectall").change(function () {
+            $("input:checkbox").prop('checked', $(this).prop("checked"));
+            EnableDeleteButton();
+        });
+
+        var btnDelete = $("#btnDelete");
+        function EnableDeleteButton() {
+            if ($('input[name="IDChecked"]:checked').length <= 0) {
+                btnDelete.hide();
+            }
+            else {
+                btnDelete.show();
+            }
+        };
+
+        function OnSuccess() {
+            location.reload(true);
+        };
+        function OnFailure() {
+            alert("修改商品發生錯誤！");
+        };
+        function ReloadURL() {
+            datatable.ajax.reload();
+        };
+
+        function PopupForm(url, title, height, width) {
+            var formDiv = $('<div/>');
+            $.get(url)
+                .done(function (response) {
+                    formDiv.html(response);
+
+                    Popup = formDiv.dialog({
+                        autoOpen: true,
+                        resizable: false,
+                        title: title,
+                        height: height,
+                        width: width,
+                        close: function () {
+                            Popup.dialog('destroy').remove();
+                        }
+                    });
+                });
+        };
+
+    </script>
+}

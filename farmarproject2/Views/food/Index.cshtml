@@ -1,0 +1,53 @@
+﻿
+@{
+    ViewBag.Title = "地方特色料理";
+}
+
+<div class="jumbotron" style="background-image:url('http://s3.amazonaws.com/caself/products/photos/000/000/889/original/seamless-wood-pattern.jpg?1507763405')">
+
+    <img src="@Url.Content("~/logo/logo.jpg")" style="height:150px;width:150px;opacity:0.5" />
+    <h1 style="letter-spacing:60px;font-family:微軟正黑體;font-weight:bold">地方特色料理</h1>
+</div>
+<script src="~/Scripts/jquery-3.3.1.min.js"></script>
+<script>
+    $(document).ready(function () {
+        var dataurl = "http://data.coa.gov.tw/Service/OpenData/ODwsv/ODwsvTravelFood.aspx?";
+         
+        $.ajax({
+            type: "GET",
+            url: dataurl
+
+        }).done(function (data) {
+            for (var i = 0; i < data.length; i++) {
+                $('#tableshow').append(
+                    "<tr>" +
+                     
+                    "<td>" + data[i].Name + "</td>" +
+                    "<td>" + data[i].Address + "</td>" +
+                    "<td>" + data[i].Tel + "</td>" +
+                    "<td>" + data[i].HostWords + "</td>" +
+                    "<td> <img src = '" + data[i].PicURL + "'style='width:200px' /> </td>" +
+                    "<td>  <a href='https://www.google.com.tw/maps/place/" + data[i].Address + "'target='_blank' class='btn btn-info'>地圖   </td>"
+                         +                                                                                                             
+
+                      "</tr>"
+                );
+            }
+        }).fail(function (err) {
+            alert(err.responseText);
+        });
+    });
+
+</script>
+
+<table class="table table-bordered table-condensed table-responsive" id="tableshow">
+    <tr>
+
+        <th>名稱</th>
+        <th>地址</th>
+        <th>電話</th>
+        <th>說明</th>
+        <th>照片</th>
+        <th></th>
+    </tr>
+</table>

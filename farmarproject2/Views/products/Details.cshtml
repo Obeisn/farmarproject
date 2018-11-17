@@ -1,0 +1,125 @@
+﻿@model farmarproject2.Models.product
+
+@{
+    ViewBag.Title = "Details";
+    var commentlist = new List<farmarproject2.Models.comment>();
+    using (farmarproject2.Models.farmarEntities1 db = new farmarproject2.Models.farmarEntities1())
+    {
+        commentlist = (from a in db.comments
+                       where a.ProductID == Model.productid
+                       select a).ToList();
+    }
+}
+
+
+<div style="">
+    <div class="row" style="text-align:center;margin:10px; ">
+        <div class="col-lg-5" style="">
+            <img class="zoom" style="width:400px;height:400px" src="@Url.Action("photo", "products", new { id =Model.productid})" data-big="@Url.Action("photo", "products", new { id =Model.productid})"/>
+        </div>
+        <div class="col-lg-2"></div>
+        <div class="col-lg-5" style="">
+            <p style="text-align:left;font-size:50px;font-family:Yu Gothic UI">
+
+                @Html.DisplayFor(model => model.productname, new { @style = "font-family:Yu Gothic UI;font-size:50px" })
+            </p>
+            <p style="text-align:left;font-size:25px;font-family:微軟正黑體">
+                @Html.LabelFor(model => model.unitprice, new { @style = "font-family:微軟正黑體" })
+                @Html.DisplayFor(model => model.unitprice, new { @style = "font-family:微軟正黑體" })
+            </p>
+            <p style="text-align:left;font-size:25px;font-family:Microsoft JhengHei">
+                @Html.LabelFor(model => model.unitstock, new { @style = "font-family:微軟正黑體" })<input value="1" id="@Model.productid" name="quantity" type="number" max="@Model.unitstock" min="0" />
+            </p>
+            <p class="text-center" style="text-align:left;font-size:25px;font-family:微軟正黑體; margin-left:0px">
+                <a onclick="aa(@Model.productid,@Model.productid)" href="javascript:void(0)" class="btn btn-danger " role="button">
+                    <i class="fa fa-shopping-cart" aria-hidden="true"></i>加入購物車
+                </a>
+                @Html.ActionLink("回首頁", "homepage", "Home", null, new { @class = "btn btn-success" })
+            </p>
+            <p style="text-align:left;font-size:25px;font-family:微軟正黑體">
+                @Html.Label("刊登本商品賣家", new { @style = "font-family:微軟正黑體" })<br />
+                @Html.DisplayFor(model => model.user_email, new { @style = "font-family:微軟正黑體" })<br />
+                <div id="fb-root"></div>
+                <script>
+                    (function (d, s, id) {
+                        var js, fjs = d.getElementsByTagName(s)[0];
+                        if (d.getElementById(id)) return;
+                        js = d.createElement(s); js.id = id;
+                        js.src = "https://connect.facebook.net/zh_TW/sdk.js#xfbml=1&version=v3.0";
+                        fjs.parentNode.insertBefore(js, fjs);
+                    }(document, 'script', 'facebook-jssdk'));</script>
+                <div class="fb-like"
+                     data-href="http://localhost:56901"
+                     data-layout="standard"
+                     data-action="like"
+                     data-show-faces="true">
+                </div>
+            </p>
+        </div>
+       
+    </div>
+    <br/>
+     <br/>
+    <br/>
+    <div class="row">
+        <div style="text-align:center;margin-left:30px;margin-right:50px;width:100%;height:300px">
+            <p style="text-align:left;font-size:30px;">
+                @Html.LabelFor(model => model.description, new { @style = "font-family:微軟正黑體" })
+            </p>
+            <p style="text-align:left;font-size:20px;">
+                @Html.DisplayFor(model => model.description, new { @style = "font-family:微軟正黑體" })
+            </p>
+
+        </div>
+       
+    </div>
+    <div class="row"> 
+        <div class="text-center">
+            <p style="font-family:'微軟正黑體';font-size:80px">商品留言區</p>
+        </div>
+    <div style="margin:20px;text-align:center">
+        <div style=" height:150px;overflow:scroll;">
+            <dl class="dl-horizontal">
+                @foreach (var comment in commentlist)
+                {
+                    <dt>@comment.UserId</dt>
+                    <dd>@comment.Contents (@comment.CreateDate)</dd>
+                }
+            </dl>
+        </div>
+
+    </div>
+    <div style="margin:30px;text-align:left;">
+        @using (Html.BeginForm("Addcomment", "products", FormMethod.Post, new { }))
+        {
+            @Html.HiddenFor(m => m.productid)
+            @Html.TextBox("content",null,new {@style="width:300px" })
+            <input type="submit" value="對本商品留言" class="btn btn-success" />
+        }
+    </div>
+</div>
+</div>
+@section scripts{
+<script src="~/Scripts/photobig.js"></script>
+    <script>
+        function aa(x, y) {
+            AddToCart(x, $("#" + y).val());
+        }
+        //<![CDATA[
+        $(".zoom").each(function () {
+            var $this = $(this);
+            $this.mlens({
+                imgSrc: $this.attr("data-big"),
+                lensShape: "circle", // 放大鏡形狀 circle(圓形), square(方形)
+                lensSize: ["20%", "30%"], // 放大鏡長寬 (可使用 px 或百分比 %)
+                borderSize: 3, // 放大鏡邊框寬度 (px)
+                borderColor: "#fff", // 放大鏡邊框顏色色碼
+                borderRadius: 0, // 如果放大鏡為方形 設定圓角程度
+                overlayAdapt: true,
+                zoomLevel: 1,
+                responsive: true // 圖片是否自適應
+            });
+        }).parent().css("position", "relative");
+//]]>
+    </script>
+}

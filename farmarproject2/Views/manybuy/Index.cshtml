@@ -1,0 +1,77 @@
+﻿@model farmarproject2.Models.multi_buy
+@{
+    ViewBag.Title = "Index";
+}
+
+<img  style="width:1000px;height:400px;margin:30px auto" src="~/image/333.png" />
+
+
+@*發起團購*@
+
+<div class="row">
+         <div class="col-lg-2"></div>
+         <div class="col-lg-5" style="border:5px solid #ffd800;padding:0;margin:0">
+             <img id="img" style="width:100%;height:350px" src=@Url.Action("photo","products",new { id=ViewBag.id}) alt="Alternate Text" />
+         </div>
+         <div class="col-lg-5">
+             <h3>商品名稱</h3>
+             <label>@ViewBag.productname</label>
+             <h3>商品總類</h3>
+             <label>@ViewBag.category</label>
+             <h3>商品簡介</h3>
+             <label>@ViewBag.description</label>
+         </div>
+</div>
+
+
+
+<div class="row" style="margin:15px 0">
+    <div class="col-lg-2" ></div>
+    @using (Html.BeginForm("index", "manybuy", FormMethod.Post, new { @enctype = "multipart/form-data" }))
+    {
+        @Html.AntiForgeryToken();
+    <div class="col-lg-5"style="border:5px solid #0094ff">
+        <h3>團購名稱</h3>
+        @Html.TextBoxFor(x => x.multi_buy_name, new { @class = "form-control text-center" })
+
+        <h3>發起者</h3>
+        @Html.TextBoxFor(x => x.raiser_id, new { @class = "form-control showdatialname1", @Value = User.Identity.Name, @readonly = "readonly" })
+        @Html.TextBoxFor(x => x.productid, "manybuy", new { @class = "form-control ", @Value = ViewBag.product, @style = "display:none"})
+
+        @Html.TextBoxFor(x => x.raise_time, new { @id = "now", @class = "form-control", @style = "display:none" })
+        <h3>截止時間</h3>
+        @Html.TextBoxFor(x => x.deadline, "{0:yyyy-MM-dd}", new { @type = "date", @class = "form-control", @style = "text-align:center" })
+
+        <h3>目標數量</h3>
+        @Html.TextBoxFor(x => x.maxamount, new { @class = "form-control", @style = "text-align:center" })
+        <br />
+        <button  class="btn btn-success  " type="submit" style="width:200px;margin:10px 0">送出</button>
+        <button type="button" onclick="aaa()">demo</button>
+    </div> 
+
+    }
+</div>
+<script>
+
+    function aaa() {
+
+        $("#multi_buy_name").val("快來喔")
+        $("#maxamount").val("30")
+    }
+
+
+
+    var now = new Date();
+    var nowy = now.getFullYear();
+    var nowM = now.getMonth() + 1;
+    var nowd = now.getDate()
+    if (nowM <= 9) {
+        nowM = "0" + nowM
+    }
+    if (nowd <= 9) {
+        nowd = "0" + nowd
+    }
+    var nowday = nowy + "/" + nowM + "/" + nowd
+    var s = document.getElementById("now")
+    s.setAttribute("Value", nowday)
+</script>

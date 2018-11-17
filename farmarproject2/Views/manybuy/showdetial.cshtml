@@ -1,0 +1,133 @@
+﻿@model farmarproject2.Models.multi_buy
+
+@{
+    ViewBag.Title = "showdetial";
+    var s = User.Identity.Name;
+    var a = ViewBag.currentamount;
+}
+
+<div style="text-align:center;margin:40px 0">
+    <img style="width:60%;height:400px;border:4px solid #ffd800" src="@Url.Action("photo", "products", new { id = ViewBag.produntid})" /><br />
+    <label style="margin:10px 0;font-size:30px;font-family:微軟正黑體;color:darkgoldenrod">團購名稱</label>
+    <p style="text-align:center;font-size:20px;font-weight:bold;font-family:微軟正黑體"> @Html.DisplayFor(x => x.multi_buy_name)</p><br />
+    <label style="margin:10px 0;font-size:30px;font-family:微軟正黑體;color:darkgoldenrod">商品簡介</label>
+    <p style="font-family:微軟正黑體;text-align:center;width:40%;margin:0 auto">@ViewBag.proddescript </p>
+    <p id="p1" style="display:none;font-family:微軟正黑體;font-style:italic">@Html.DisplayFor(x => x.deadline)</p>
+    <label style="margin:10px 0;font-size:30px;font-family:微軟正黑體;color:darkgoldenrod">目前進度</label><br />
+    <label class="control-label text-danger" style="font-size:30px">@a/@Html.DisplayFor(x => x.maxamount)</label><br />
+    <label style="margin:10px 0;font-size:30px;font-family:微軟正黑體;color:darkgoldenrod">剩餘時間</label><br />
+    @if (a >= Model.maxamount)
+    {
+        <h1 style="color:chocolate">團購成功</h1>
+        <h1 style="color:chocolate;display:none" id="h1"></h1>
+    }
+    else
+    {
+
+        <h1 style="color:chocolate" id="h1"></h1>
+
+
+        using (Html.BeginForm("showdetial", "manybuy", FormMethod.Post, new { @enctype = "multipart/form-data" }))
+
+        {@Html.AntiForgeryToken()
+
+        <input id="multi_buy_id" name="multi_buy_id" value=@ViewBag.id style="display:none" />
+        <input name="join_id" value="@User.Identity.Name" style="display:none;" />
+
+
+        <label style="margin:10px 0;font-size:30px;font-family:微軟正黑體;color:darkgoldenrod">數量</label><br />
+        @Html.DropDownList("num", new SelectList(new[] { "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "20" }), "--請選擇--", new { @class = "form-control", @style = "margin:5px auto" })
+
+
+
+
+        <input value="5" id="amount" name="amount" max="@Html.DisplayFor(x => x.maxamount)" type="number" class="form-control" style="display:none" />
+
+        <input name="deadine" value="@ViewBag.deadline" style="display:none" />
+
+        <button onclick="zero()" type="submit" class="btn btn-primary" style="width:40%;margin:15px 0" id="but">立即參加</button>
+    }
+
+    }
+</div>
+
+
+@section scripts
+{
+    <script>
+
+        var btnvalue;
+        btnvalue = $("#num").val()
+        if ((@a) >=@Html.DisplayFor(x=>x.maxamount)) {
+            
+            $("#h1").text("團購成功")
+        }
+
+
+   
+   
+        $(function () {
+            $("#num").change(click)
+        });
+      
+   
+        
+        function click() {
+
+            btnvalue = $("#num").val()
+            if ((@a+parseInt(btnvalue)) >@Html.DisplayFor(x=>x.maxamount)) {
+
+     
+                    alert("超過團購數量,請改下其他數量")
+           
+                }
+                else {
+      
+                    $("#amount").val(btnvalue)
+                    }
+                    //btns[i].className = "btn btn-success btn-lg " 
+                }
+
+
+
+            
+
+
+        
+
+    function time() {
+
+        var s = $("#p1").text().split("/")
+        var dd = s[2].split(" ")
+        var time = new Date(s[0] + "-" + s[1] + "-" + dd[0]).getTime()
+        var now = new Date().getTime();
+
+         var last=time-now
+
+        dday = Math.floor(last/ (60 * 60 * 1000 * 24) * 1)
+        dhour = Math.floor((last% (60 * 60 * 1000 * 24)) / (60 * 60 * 1000) * 1)
+        dmin = Math.floor(((last % (60 * 60 * 1000 * 24)) % (60 * 60 * 1000)) / (60 * 1000) * 1)
+        dsec = Math.floor((((last% (60 * 60 * 1000 * 24)) % (60 * 60 * 1000)) % (60 * 1000)) / 1000 * 1)
+
+
+
+           document.getElementById("h1").innerText= " 還有 " + dday + " 天" + dhour + " 小時" + dmin + " 分" + dsec + " 秒 "
+
+
+        dsec=dsec-1
+    }
+
+
+
+    var times= setInterval(time,1000)
+
+        time();
+
+
+ 
+
+    </script>
+
+
+
+}

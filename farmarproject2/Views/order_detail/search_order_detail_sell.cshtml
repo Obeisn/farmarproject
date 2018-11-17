@@ -1,0 +1,101 @@
+﻿@model IEnumerable<farmarproject2.Models.order_detail>
+
+@{
+    ViewBag.Title = "Index";
+}
+@section styles{
+    <link href="~/Content/DataTables/css/jquery.dataTables.min.css" rel="stylesheet" />
+
+
+}
+
+
+
+<table cellpadding="0" cellspacing="0" border="0" id="t1" style="font-family:'微軟正黑體'">
+    <thead>
+        <tr style="background-color:cornflowerblue">
+            <th>
+                @Html.Label("訂單編號")
+            </th>
+            <th>
+                @Html.Label("商品名稱")
+            </th>
+            <th>
+                @Html.Label("購買數量")
+            </th>
+            <th>
+                @Html.Label("總金額")
+            </th>
+            <th>
+                @Html.Label("商品編號")
+            </th>
+            <th>
+                @Html.Label("出貨狀態")
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.order_id)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.productname)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.quiantity)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.total_price)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.productid)
+                </td>
+                <td>
+                    @Html.DisplayFor(a => item.status)
+                </td>
+                <td>
+                    @Html.ActionLink("出貨", "pack", "order_detail", new { order_detail_id = item.order_detail_id, product_id = item.productid, quintity = item.quiantity, id=item.order_id }, new { @class = "btn btn-primary", @onclick = "pack();" })
+                </td>
+
+            </tr>
+        }
+    </tbody>
+
+
+</table>
+
+
+@section scripts{
+    <script src="~/Scripts/jquery-3.3.1.min.js"></script>
+    <script src="~/Scripts/DataTables/jquery.dataTables.min.js"></script>
+    <script>
+        var opt = {
+            "oLanguage": {
+                "sProcessing": "處理中...",
+                "sLengthMenu": "顯示 _MENU_ 項結果",
+                "sZeroRecords": "沒有匹配結果",
+                "sInfo": "顯示第 _START_ 至 _END_ 項結果，共 _TOTAL_ 項",
+                "sInfoEmpty": "顯示第 0 至 0 項結果，共 0 項",
+                "sInfoFiltered": "(從 _MAX_ 項結果過濾)",
+                "sSearch": "搜索:",
+                "oPaginate": {
+                    "sFirst": "首頁",
+                    "sPrevious": "上頁",
+                    "sNext": "下頁",
+                    "sLast": "尾頁"
+                }
+            }
+        };
+        $(document).ready(function () {
+            $('#t1').dataTable(opt);
+        });
+        function pack() {
+            alert('出貨成功');
+        }
+    </script>
+}

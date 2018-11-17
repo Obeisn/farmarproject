@@ -1,0 +1,130 @@
+﻿@model IEnumerable<farmarproject2.Models.order>
+
+@{
+    ViewBag.Title = "Orders";
+    var order_detaillist = new List<farmarproject2.Models.order_detail>();
+    using (farmarproject2.Models.farmarEntities1 db = new farmarproject2.Models.farmarEntities1())
+    {
+
+        foreach (var item in Model)
+        {
+            order_detaillist = (from a in db.order_detail
+                                where a.order_id == item.order_id
+                                select a).ToList();
+        }
+    }
+}
+
+@section styles{
+<link href="~/Content/DataTables/css/jquery.dataTables.min.css" rel="stylesheet" />
+}
+<div class="row">
+    <img src=@Url.Content("~/image/5.jpg" ) style="width:100%;height:300px"/>
+</div>
+
+<div class="row"> 
+<table cellpadding="0" cellspacing="0" border="0" id="t1" style="font-family:'微軟正黑體'">
+    <thead>
+        <tr style="background-color:cornflowerblue">
+            <th>
+                @Html.Label("訂單編號")
+            </th>
+            <th>
+                @Html.Label("購買人姓名")
+            </th>
+            <th>
+                @Html.Label("購買人電子郵件")
+            </th>
+            <th>
+                @Html.Label("購買人連絡電話")
+            </th>
+            <th>
+                @Html.Label("購買人連絡地址")
+            </th>
+
+            <th>
+                @Html.Label("交易時間")
+            </th>
+
+            <th>
+                @Html.Label("訂單狀態")
+            </th>
+
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr style="background-color:white">
+                <td>
+                    @Html.DisplayFor(modelItem => item.order_id)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.buy_Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.buy_id)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.buy_Phone)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.buy_Address)
+                </td>
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.build_time)
+                </td>
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.status)
+                </td>
+
+                <td>
+                    @Html.ActionLink("顯示訂單明細", "search_order_detail_sell", new { id = item.order_id, Controller = "order_detail" }, new { @class = "btn btn-primary" })
+
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+</div>
+@section scripts{
+    
+<script src="~/Scripts/DataTables/jquery.dataTables.min.js"></script>
+    <script>
+        var opt = {
+            "oLanguage": {
+                "sProcessing": "處理中...",
+                "sLengthMenu": "顯示 _MENU_ 項結果",
+                "sZeroRecords": "沒有匹配結果",
+                "sInfo": "顯示第 _START_ 至 _END_ 項結果，共 _TOTAL_ 項",
+                "sInfoEmpty": "顯示第 0 至 0 項結果，共 0 項",
+                "sInfoFiltered": "(從 _MAX_ 項結果過濾)",
+                "sSearch": "搜索:",
+                "oPaginate": {
+                    "sFirst": "首頁",
+                    "sPrevious": "上頁",
+                    "sNext": "下頁",
+                    "sLast": "尾頁"
+                }
+            }
+        };
+        $(document).ready(function () {
+            $('#t1').dataTable(opt);
+        });
+        function mincate(x,y,z) {
+            $.ajax({
+                type: "put",
+                url: "@Url.Action("minuscate", "order_detail")",
+                data: { productid: x, quiantity: y, order_detail_id:z}
+
+            }).done(
+
+            ).fail(function (err) {
+                alert(err.responseText);
+            });
+        }
+    </script>
+}

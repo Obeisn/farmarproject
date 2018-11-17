@@ -1,0 +1,20 @@
+.FontSize{
+  font-size: 24px
+}
+.ItemSelect {
+    height: 50px;
+    width: 100%;
+    text-align: center;
+    padding-top: 10px;
+    font-size: 24px
+}
+.pickchu{
+    height:125px; 
+    margin-left: 65px; 
+    padding-top:10px;  
+    width:125px;  
+}
+.ItemImg{
+    height:150px; 
+    width:100%;
+}

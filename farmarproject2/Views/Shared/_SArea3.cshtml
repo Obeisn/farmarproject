@@ -1,0 +1,90 @@
+﻿<head>
+    <style>
+        .dataTables_wrapper {
+            position: relative;
+            clear: both;
+            margin-top: -34px;
+        }
+    </style>
+</head>
+<h1 class="page-header">商品管理</h1>
+
+<div class="row" style="margin:0;">
+    <div class="row" style="height:100px; border:rgb(223, 223, 223) 1px solid; margin: 0;  ">
+
+        <table style="margin-top:15px;">
+            <tbody>
+                <tr>
+                    <td>商品名稱</td>
+                    <td>
+                        <input class="form-control" type="text" id="txtProductName" />
+                    </td>
+                    <td>價格</td>
+                    <td>
+                        <input class="form-control" type="text" id="txtPrice" />
+                    </td>
+
+                    <td>~</td>
+                    <td>
+                        <input class="form-control" type="text" id="txtPrice1" />
+                    </td>
+                    <td>發佈人</td>
+                    <td>
+                        <input class="form-control" type="text" id="txtName" />
+                    </td>
+
+                </tr>
+                <tr>
+                    <td>種類</td>
+                    <td>
+                        <select class="form-control" id="SelectKind" style="width:200px">
+                            <option value="">全部</option>
+                            <option value="肉類">肉類</option>
+                            <option value="蔬果">蔬果</option>
+                            <option value="海鮮">海鮮</option>
+                            <option value="調味品">調味品</option>
+                            <option value="五穀雜糧">五穀雜糧</option>
+                        </select>
+                    </td>
+                   
+                </tr>
+            </tbody>
+        </table>
+
+    </div>
+
+    <div class="col-sm-11" style="position:relative">
+        <input id="Additem" type="button" onclick="PopupForm('@Url.Action("AddItemView","Serice")','新增商品',650,700)" style=" position:relative; left: 152px; z-index:1 "
+               class="btn btn-default buttons-collection buttons-colvis btn-success" value="新增商品">
+        <table ellpadding="0" cellspacing="0" border="0" class="datatable table table-striped table-bordered" style="width:1390px;" id="DataTable1">
+            <thead>
+                <tr style="background-color:cornflowerblue;">
+                    <th>編號</th>
+                    <th>商品</th>
+                    <th>種類</th>
+                    <th>價格</th>
+                    <th>庫存</th>
+                    <th>敘述</th>
+                    <th>照片</th>
+                    <th>發佈人</th>
+                    <th>修改</th>
+                </tr>
+            </thead>
+        </table>
+    </div>
+    <div class="col-sm-1"></div>
+</div>
+<script>
+    IItemRun();
+    $(document).ready(function () {
+        $("#txtProductName").focus(cleartxt);
+
+        $("#txtName").focus(cleartxt);
+        $("#txtProductName").keyup(SerchProductName);
+        $("#SelectKind").change(SelectKind);
+        $("#txtName").keyup(SerchName);
+        $("#txtPrice1").keyup(SerchPrice);
+        $("#txtPrice").keyup(SerchPrice);
+    });
+
+</script>

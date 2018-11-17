@@ -1,0 +1,51 @@
+﻿@model farmarproject2.Models.AspNetUser
+<h4>個人資料</h4>
+<div style="margin-left:100px;" class="container">
+    @using (Html.BeginForm("EditUser", "UserAccount", FormMethod.Post, new { @class = "form-horizontal", role = "form", @enctype = "multipart/form-data" }))
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-group">
+            <div class="row">
+                @Html.LabelFor(m => m.Email, new { @class = "col-md-2 control-label" })
+                <div class="col-md-10">
+                    @Html.TextBoxFor(m => m.Email, new { @class = "form-control", @readonly = "readonly" })
+                    <a>(帳號更改請聯絡管理員)</a>
+                </div>
+
+
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="row">
+                @Html.LabelFor(m => m.FamName, new { @class = "col-md-2 control-label" })
+                <div class="col-md-10">
+                    @Html.TextBoxFor(m => m.FamName, new { @class = "form-control" })
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="row">
+                @Html.LabelFor(m => m.PhoneNumber, new { @class = "col-md-2 control-label" })
+                <div class="col-md-10">
+                    @Html.TextBoxFor(m => m.PhoneNumber, new { @class = "form-control" })
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="row">
+                @Html.LabelFor(m => m.UserIg, new { @class = "col-md-2 control-label" })
+                <div class="col-md-10">
+                    <img id="imgp" src=@Url.Content("~/image/")@Model.UserIg style="width:320px;height:240px;">
+                    <input type="file" name="File1" id="File1" accept="image/*" />
+
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" class="btn btn-default" value="修改" />
+            </div>
+        </div>
+    }
+</div>

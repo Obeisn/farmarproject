@@ -1,0 +1,25 @@
+﻿@model IEnumerable<farmarproject2.Models.product>
+
+<div class="row"></div>
+@foreach (var x in Model)
+{
+    if (x.category_multiple == "否")
+    {
+<div class="col-lg-4">
+    <img style="width:100%;height:240px;" src="@Url.Action("photo", "products", new { id = x.productid })" />
+    @Html.LabelFor(y => x.category, new { @class = "control-label" })
+    @Html.DisplayFor(y => x.category)
+    @Html.LabelFor(y => x.productname, new { @class = "control-label" })
+    @Html.DisplayFor(y => x.productname)
+    @Html.LabelFor(y => x.unitprice, new { @class = "control-label" })
+    @Html.DisplayFor(y => x.unitprice)
+    <p>欲購買數量:<input value="1" id="@x.productid" name="quantity" type="number" max="@x.unitstock" min="0" /> </p>
+    <p>
+        <a onclick="aa(@x.productid,@x.productid)" href="javascript:void(0)" class="btn btn-danger " role="button">
+            <i class="fa fa-shopping-cart" aria-hidden="true"></i>加入購物車
+        </a>
+        @Html.ActionLink("詳細資料", "Details", "products", new { id = x.productid }, new { @class = "btn btn-primary" })
+    </p>
+</div>
+    }
+}

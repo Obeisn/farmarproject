@@ -1,0 +1,69 @@
+﻿@model farmarproject2.Models.product
+
+@{
+    Layout = null;
+}
+
+<form id="send" enctype="multipart/form-data">
+    @Html.AntiForgeryToken()
+    <div class="form-group">
+        @Html.LabelFor(model => model.productid, new { @class = "control-label" })
+        @Html.EditorFor(model => model.productid, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(model => model.productname, new { @class = "control-label" })
+        @Html.EditorFor(model => model.productname, new { htmlAttributes = new { @class = "form-control" } })
+
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(model => model.category, new { @class = "control-label" })
+        @Html.DropDownList("category", new SelectList(new[] { "肉類", "蔬果", "海鮮", "五穀雜糧", "調味品" }),Model.category, new { @class = "form-control" })
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(model => model.unitprice, new { @class = "control-label" })
+        @Html.EditorFor(model => model.unitprice, new { htmlAttributes = new { @class = "form-control" } })
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(model => model.unitstock, new { @class = "control-label" })
+        @Html.EditorFor(model => model.unitstock, new { htmlAttributes = new { @class = "form-control" } })
+    </div>
+ 
+        @Html.LabelFor(model => model.description, new { @class = "control-label" })
+  
+    <div class="form-group">
+        @Html.TextAreaFor(model => model.description, 4, 87, new { htmlAttributes = new { @class = "form-control" } })
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(model => model.user_email, new { @class = "control-label" })
+        @Html.EditorFor(model => model.user_email, new { htmlAttributes = new { @class = "form-control" } })
+    </div>
+    <div class="form-group">
+        <img id="imgp" src='@Url.Action("Itemphoto", "Serice")/@Model.productid?'+new Date().getTime(); style="width:320px;height:240px;">
+        @Html.HiddenFor(model => model.picture, new { htmlAttributes = new { @class = "form-control" } })
+        <input type="file" name="File1" id="File1" accept="image/*" />
+    </div>
+    <div class="form-group">
+        <button onclick="return ItemEdit();" class="btn btn-primary">
+            存檔
+        </button>
+    </div>
+</form>
+<script>
+    function readURL(input) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+
+            reader.onload = function (e) {
+                $('#imgp').attr('src', e.target.result);
+            }
+            reader.readAsDataURL(input.files[0]);
+        }
+
+    }
+    $("#File1").change(function () {
+        readURL(this);
+    });
+
+
+</script>

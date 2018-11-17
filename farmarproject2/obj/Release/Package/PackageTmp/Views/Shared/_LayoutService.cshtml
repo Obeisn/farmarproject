@@ -1,0 +1,43 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>碼農是好農-蔬菜ㄉ家</title>
+</head>
+<body style="width:100%;">
+    <div style="background-color:white;  position:fixed; top:0px; width:100% ;z-index:30;border-bottom:1px black solid;">
+        <div class="container">
+            <div class="navbar-header">
+
+            </div>
+            <div class="navbar-collapse collapse ">
+                <ul class="nav navbar-nav">
+                    <li id="lia" class="dropdown">
+                        <ul id="ula" class="dropdown-menu"></ul>
+                    </li>
+
+                </ul>
+               
+                <ul class="nav navbar-nav navbar-right" style="margin-right:30px;">
+                    <li>
+                        @using (Html.BeginForm("Logout", "Serice", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Get, new { @class = "form-horizontal", role = "form" }))
+                        {
+                            <div style=" height:50px; width:100%;margin:0px auto; padding-top:10px; padding-left: 25px; color: white;">
+                                <input class="btn btn-default" type="submit" value="登出" />
+                            </div>
+                        }
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    @RenderBody()
+
+
+
+
+
+</body>
+</html>

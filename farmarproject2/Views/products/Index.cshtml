@@ -1,0 +1,73 @@
+﻿@model IEnumerable<farmarproject2.Models.product>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<div class="jumbotron" id="cate" style="background-color:aliceblue">
+    <img src="~/logo/logo.jpg" style="height:250px;width:250px" />
+    @Html.DropDownList("categorylist", new SelectList(new[] { "肉品", "海鮮", "蔬果" }), null, new { @class = "form-control" })
+</div>
+
+
+<p>
+    @Html.ActionLink("刊登商品", "Create", null, new { @class = "btn btn-primary" })
+</p>
+<div id="show"> 
+    <img src="@Url.Content("~/image/126.gif")" id="Progress" style="display:none;align-items:center"  />
+@foreach (var item in Model)
+{
+   if (item.category_multiple=="否")
+	{
+		 <div class="col-sm-6 col-md-4">
+        <div class="thumbnail">
+            @Html.Partial("_showphoto", item)
+            <div class="caption">
+                <h3>@item.productname</h3>
+                <h3>$@item.unitprice</h3>
+           
+                <p>庫存數量: @item.unitstock</p>
+                <p>欲購買數量:<input value="1" id="@item.productid" name="quantity" type="number" max="@item.unitstock" min="0" /> </p>
+                <p>                    
+                    <a onclick="aa(@item.productid,@item.productid)" href="javascript:void(0)" class="btn btn-danger " role="button">
+                        <i class="fa fa-shopping-cart" aria-hidden="true"></i>加入購物車
+                    </a>
+                    @Html.ActionLink("詳細資料", "Details","products", new { id = item.productid }, new { @class = "btn btn-primary" })
+                </p>
+            </div>
+        </div>
+    </div> 
+	}
+
+}
+</div>
+@section scripts{
+    
+    <script>
+        function aa(x,y) {
+            AddToCart(x, $("#"+y).val());
+        }
+
+        $('#cate').bind("change", function () {
+            upload();
+        });
+        function upload() {
+            var progress = $('#Progress')
+            progress.show();
+              $.ajax({
+
+            type: "POST",
+            url: "@Url.Action("showcate", "products")",
+            data: { category: categorylist.value}
+
+        }).done(function (result) {
+            $('#show').html(result);
+            progress.hide();
+        }).fail(function (e) {
+            alert(e.responseText);
+            progress.hide();
+        });
+        }
+    </script>
+}
+

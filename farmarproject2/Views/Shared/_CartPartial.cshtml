@@ -1,0 +1,45 @@
+﻿<div>
+    @{
+        /**/
+
+        //取得當前購物車所有內容
+        var currentCart = Carts.Models.Cart.Operation.GetCurrentCart();
+    }
+
+    <a id="CartDropDown" class="btn btn-secondary dropdown-toggle " data-toggle="dropdown" style="margin-top: 8px; color:black;">
+
+        @String.Format("共{0}元 ({1})", currentCart.TotalAmount, currentCart.Count)
+        @*<span class="caret"></span>*@
+    </a>
+    <ul style="width:225px;" class="dropdown-menu Cart" role="menu" aria-labelledby="CartDropDown">
+        @if (currentCart.Count > 0)
+        {
+            foreach (var item in currentCart)
+            {
+
+                <li class="col-xs-12">
+
+                    <p class="col-xs-9" style="color:black;font-size:10px;margin-top:3px;">@item.Name @item.Price 元 X @item.Quantity </p>
+                    <span class=" col-xs-1" style="margin-left:5px;" onclick="RemoveFromCart('@item.Id')">
+                        X
+                    </span>
+                </li>
+            }
+            @*<li class="divider"></li>*@
+            <li style="margin-top:10px;">
+                <div id="CartButtons" class="col-xs-12">
+                    <a style="margin-left:10px;" class="btn btn-success text-center col-xs-5" href="@Url.Action("OrderAllSeller","Order",new { })">明細</a>
+                    <a class="btn btn-danger text-center  col-xs-5" onclick="ClearCart()" style="margin-left:10px;">清空</a>
+
+                </div>
+
+            </li>
+        }
+        else
+        {
+            <li><a class=" text-center" href="#">購物車無任何商品</a></li>
+        }
+
+    </ul>
+
+</div>

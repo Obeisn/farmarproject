@@ -1,0 +1,146 @@
+﻿@model IEnumerable<farmarproject2.Models.multi_buy>
+@{
+    ViewBag.Title = "showmanybuy";
+
+    var s = 0;
+    var w = "p";
+    var a = "a";
+}
+
+<table style="width:1030px;border:1px solid #ff6a00;text-align:center;margin:30px 0"rules=rows>
+    <tr style="background-color:coral;height:50px">
+        <th style="text-align:center">
+          @Html.Label("團購名稱")
+        </th>
+        <th style="text-align:center">
+            @Html.Label("發起人帳號")
+        </th>
+        <th style="text-align:center">
+            <p >@Html.DisplayNameFor(model => model.product.productname)</p>
+        </th>
+        <th style="text-align:center">
+         
+            <p> 團購進度</p>
+        </th>
+
+
+        <th style="text-align:center">剩餘時間</th>
+        <th style="text-align:center">參加人明細</th>
+        <th style="text-align:center">設定</th>
+
+    </tr>
+
+    @foreach (var item in Model)
+    {
+
+        <tr  style="height:60px">
+            <td>
+                @Html.DisplayFor(modelItem => item.multi_buy_name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.raiser_id)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.product.productname)
+            </td>
+            <td >
+                @aaaa(item.maxamount, item.multi_buy_list.Select(y => y.amount).Sum())
+              
+            </td>
+            <td>
+          
+                <p style="display:none" id="@s">@Html.DisplayFor(m => item.deadline)</p>
+                @if (item.maxamount == item.multi_buy_list.Select(y => y.amount).Sum())
+                {
+                    <p style="color:red;font-family:fantasy">團購成功</p>
+                    <p style="color:red;font-family:fantasy;display:none" id="@w@s"></p>
+                    
+                }
+                else
+                {
+                    <p style="color:red;;font-family:fantasy;" id="@w@s"></p>
+                }
+
+           
+
+
+
+
+
+
+
+            </td>
+            <td>
+                <a href="#" id="bb" onclick="joindetial(@item.multi_buy_id)" style="font-family:微軟正黑體">明細</a>
+            </td>
+            <td>
+                <a id="aa" onclick="aa(@item.multi_buy_id)" class="btn btn-danger">取消團購</a>
+            </td>
+        </tr>
+        s++;
+    }
+
+</table>
+
+
+<script>
+
+
+        clearInterval(tot)
+     function time() {
+                for (var i = 0; i <@s; i++) {
+        //-------
+            var s = $("#" + i).text().split("/")
+            //-----
+        var dd = s[2].split(" ")
+        var time = new Date(s[0] + "-" + s[1] + "-" + dd[0]).getTime()
+        var now = new Date().getTime();
+         var last=time-now
+        dday = Math.floor(last/ (60 * 60 * 1000 * 24) * 1)
+        dhour = Math.floor((last% (60 * 60 * 1000 * 24)) / (60 * 60 * 1000) * 1)
+        dmin = Math.floor(((last % (60 * 60 * 1000 * 24)) % (60 * 60 * 1000)) / (60 * 1000) * 1)
+        dsec = Math.floor((((last % (60 * 60 * 1000 * 24)) % (60 * 60 * 1000)) % (60 * 1000)) / 1000 * 1)
+        if (now>time) {
+            document.getElementById("p" + i).innerText="過期失效"
+        }
+        else {
+            document.getElementById("p" + i).innerText = " 還有 " + dday + " 天" + dhour + " 小時" + dmin + " 分" + dsec + " 秒 "
+        }
+        dsec=dsec-1
+    }
+    }
+    var tot= setInterval(time,1000)
+    time();
+
+
+
+
+</script>
+
+
+
+
+@helper aaaa(int x, int y)
+{
+
+
+
+
+var sum = (y * 100) / x;
+
+    @*<div class="progress progress-striped">
+            <div class="progress-bar progress-bar-success" role="progressbar"
+                 aria-valuenow=@y aria-valuemin="0" aria-valuemax=@x
+                 style="width:@sum%">
+                <span class="sr-only">90% 完成（成功）</span>
+            </div>
+        </div>*@
+
+    <div class="progress" style="margin:8px 0 0 0 ">
+        <div class="progress-bar progress-bar-striped active" role="progressbar" aria-valuenow=@y aria-valuemin="0" aria-valuemax=@x style="width:@sum%">
+            @sum%
+        </div>
+    </div>
+
+}
+

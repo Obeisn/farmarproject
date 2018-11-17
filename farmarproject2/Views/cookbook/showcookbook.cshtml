@@ -1,0 +1,103 @@
+﻿@model farmarproject2.Models.cookbook
+
+@{
+    ViewBag.Title = "showcookbook";
+
+
+}
+
+<div class="row " style="height:580px;margin:50px 0">
+
+    <div class="col-lg-3">
+        <div class="panel panel-success" style="border:2px solid #00ff21">
+            <div class="panel-heading ">最新刊登</div>
+            <div class="panel-body">
+                @foreach (var x in ViewBag.nearcook)
+                {
+                    string name = x.cookbookname;
+                    @Html.Raw(x.pircture)
+                    @Html.ActionLink(name, "showcookbook", "cookbook", new { id = x.cookid }, new { @style = "font-size:15px;font-family:微軟正黑體" })
+                }
+            </div>
+        </div>
+
+    </div>
+    <div class="col-lg-4" style="height:280px;border:1px solid #ffd800;padding:0">
+        @Html.Raw(Model.pircture)
+    </div>
+    <div class="col-lg-4" style="margin:20px 0">
+
+        <label class="control-label" style="font-size:20px;font-family:微軟正黑體;font-weight:bold">菜名</label><br />
+        <label class="control-label">@Html.Raw(Model.cookbookname)</label><br />
+        <label class="control-label" style="font-size:20px;font-family:微軟正黑體;font-weight:bold">主要食材</label><br />
+        <label class="control-label" style="font-size:20px"> @Html.Raw(Model.food)</label><br />
+        <label class="control-label" style="font-size:20px;font-family:微軟正黑體;font-weight:bold">簡介</label><br />
+        <label class="control-label">@Model.text</label><br />
+        @*<div style="height:230px">*@
+
+        @*</div>*@
+    </div>
+
+    <div class="col-lg-3" style=" margin:30px 0">
+        @Html.Raw(Model.description)
+    </div>
+
+</div>
+
+<br /><br /><br /><br /><br /><br /><br /><br /><br />
+
+
+
+
+<div style="width:100%;height:10px;background-color:bisque;margin:20px"></div>
+<div id="div1"></div>
+
+
+@*<a onclick="gae('牛肉')">牛肉</a>*@
+<script>
+        function gae(x) {
+            $.ajax({
+                type: "GET",
+                url:"@Url.Action("search","cookbook")/"+x
+            }).done(function (data) {
+                     $("#div1").html(data)
+                }).fail(function (e) {
+                    alert(e.responseText)
+                })
+        }
+</script>
+
+@section scripts{
+
+    <script>
+            function aa(x,y) {
+                AddToCart(x, $("#"+y).val());
+            }
+
+            $('#cate').bind("change", function () {
+                upload();
+            });
+            function upload() {
+                var progress = $('#Progress')
+                progress.show();
+                  $.ajax({
+
+                type: "POST",
+                url: "@Url.Action("showcate", "products")",
+                data: { category: categorylist.value}
+
+            }).done(function (result) {
+                $('#show').html(result);
+                progress.hide();
+            }).fail(function (e) {
+                alert(e.responseText);
+                progress.hide();
+            });
+            }
+    </script>
+}
+
+
+
+
+

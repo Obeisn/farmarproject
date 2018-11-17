@@ -1,0 +1,62 @@
+﻿@model IEnumerable<farmarproject2.Models.product>
+
+
+@{
+    ViewBag.Title = "show";
+    var size = true;
+    var ii = 1;
+    var p = "p";
+}
+
+<div class="row">
+    
+    <div class=" text-center" style="margin:10px auto">
+        <img class="" src="http://www.wonderfulfood.com.tw/../adImgThum/201809201206543945.jpg" style="width: 1030px; height: 400px;">
+    </div>
+</div>
+
+
+<div class="row" id="butchange" style=" margin:20px">
+
+    @foreach (var x in Model)
+    {  
+        <div class="panel col-lg-3" style="border:1px solid #ff6a00;padding:0;margin:10px 40px">
+            <div class="panel-heading" style="padding:0;margin:0">
+                <img style="width:100%;height:200px;border:5px solid #ffd800" src="@Url.Action("photo", "products", new { id = x.productid })" />
+            </div>
+            <div class="panel-body" style="padding:0;margin:0;height:180px">
+                <label style="text-align:center;color:red">產品名稱</label>
+                <p style="text-align:center">@Html.DisplayFor(m => x.productname)</p>
+                <label style="text-align:center;color:red;">產品簡介</label>
+                <p id=@p@ii>@Html.DisplayFor(m => x.description)</p>
+            </div>
+            <div class="panel-footer" style="padding:0;margin:0">
+                <a class="btn btn-primary" style="width:100%;background-color:cornflowerblue"href=@Url.Action("Index","manybuy",new {id=x.productid})>發起團購</a>
+            </div>
+        </div>
+
+          ii++;
+
+    }
+</div>
+
+ @section scripts
+ {
+<script>
+    $(document).ready(function () {
+        for (var i = 1; i <@ii; i++)
+    {
+        var s = document.getElementById("p"+i).innerText
+   
+            var ss = s.substring(1, 90)+"。。。。。"
+            
+        document.getElementById("p"+i).innerText = ss;
+
+    }
+
+  
+    });
+
+     </script>
+     }
+

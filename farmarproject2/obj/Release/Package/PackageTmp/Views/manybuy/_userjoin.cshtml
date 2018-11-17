@@ -1,0 +1,126 @@
+﻿@model IEnumerable<farmarproject2.Models.multi_buy_list>
+
+@{
+    var s = 0;
+    var w = "p";
+    var a = "a";
+
+
+    
+}
+
+
+
+ 
+<table style="width:1000px;border:1px solid #ff6a00;text-align:center;margin:30px 0"rules=rows>
+    <tr style="background-color:coral;height:50px">
+        <th style="text-align:center">
+            @Html.Label("帳號")
+        </th>
+        <th style="text-align:center">
+            @Html.Label("訂購數量", new { @class = "text-center" })
+        </th>
+        <th style="text-align:center">
+            @Html.Label("查詢", new { @class = "text-center" })
+        </th>
+        <th style="text-align:center">
+            @Html.Label("團購名稱", new { @class = "text-center" })
+        </th>
+        <th style="text-align:center">時間</th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr style="height:60px" align=middle   >
+            <td >
+                @Html.DisplayFor(modelItem => item.join_id)
+            </td>
+            <td>
+                <p class="text-center"> @Html.DisplayFor(modelItem => item.amount)
+            </td>
+            <td>
+
+                <p class="text-center" >
+                    @Html.ActionLink("查看", "showdetial", "manybuy", new { id = item.multi_buy_id }, null)
+                </p>
+
+
+                    @*@if (Html.Action( int.Parse(Html.Action("amount","UserAccount",item.multi_buy_id)))
+            {
+                <p style="color:red;font-size:20px;font-family:fantasy;width:300px">團購成功</p>
+                <p style="color:red;font-size:20px;font-family:fantasy;width:300px;display:none" id="@w@s"></p>
+            }
+            else
+            {
+                <p style="color:red;font-size:20px;font-family:fantasy;width:300px" id="@w@s"></p>
+            }*@
+
+                    @*<p style="display:none" id="@s">@Html.DisplayFor(m => item.deadine)</p>*@
+
+            </td>
+            <td>
+            
+                <p class="text-center">   @Html.DisplayFor(modelItem => item.multi_buy.multi_buy_name)</p>
+            </td>
+            <td>
+                  <p>@DateTime.Now.ToShortDateString()</p>
+            </td>
+            <td>
+                @if (item.deadine < DateTime.Now)
+                {
+                    <a  style="display:none" data-toggle="tab" href="2" id="aa" onclick="aa1(@item.multi_buy_list_id)" class="btn btn-danger text-center">取消</a>
+                 }
+                else
+                {
+                    <a  data-toggle="tab" href="2" id="aa" onclick="aa1(@item.multi_buy_list_id)" class="btn btn-danger text-center">取消</a>
+                }
+
+            </td>
+        </tr>
+        s++;
+    }
+
+</table>
+
+<script>
+
+
+
+
+
+             @*function time() {
+                    for (var i = 0; i <@s; i++) {
+
+                var s = $("#" + i).text().split("/")
+
+            var dd = s[2].split(" ")
+            var time = new Date(s[0] + "-" + s[1] + "-" + dd[0]).getTime()
+            var now = new Date().getTime();
+
+             var last=time-now
+
+            dday = Math.floor(last/ (60 * 60 * 1000 * 24) * 1)
+            dhour = Math.floor((last% (60 * 60 * 1000 * 24)) / (60 * 60 * 1000) * 1)
+            dmin = Math.floor(((last % (60 * 60 * 1000 * 24)) % (60 * 60 * 1000)) / (60 * 1000) * 1)
+            dsec = Math.floor((((last % (60 * 60 * 1000 * 24)) % (60 * 60 * 1000)) % (60 * 1000)) / 1000 * 1)
+                        if (now > time) {
+                            document.getElementById("p" + i).innerText = "過期失效"
+                        }
+                        else {
+                            document.getElementById("p" + i).innerText = " 還有 " + dday + " 天" + dhour + " 小時" + dmin + " 分" + dsec + " 秒 "
+                        }
+
+
+
+            dsec=dsec-1
+        }
+
+        }
+
+        setInterval(time,1000)
+
+        time();*@
+
+</script>
+

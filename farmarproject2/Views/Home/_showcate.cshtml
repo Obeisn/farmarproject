@@ -1,0 +1,30 @@
+﻿@model IEnumerable<farmarproject2.Models.product>
+<div id="show" class="col-lg-12">
+    <img src="@Url.Content("~/image/126.gif")" id="Progress" style="display:none;align-items:center" />
+    @foreach (var item in Model)
+    {
+        if (item.category_multiple == "否")
+        {
+            <div class="col-sm-6 col-md-4">
+                <div class="thumbnail" style="box-shadow:5px 2px 2px rgba(20%,20%,40%,0.6),4px 4px 6px rgba(20%,20%,40%,0.4),6px 6px 12px rgba(20%,20%,40%,0.4)">
+                    <img src="@Url.Action("photo","Home",new { id=item.productid})" style="height:250px;width:100%" />
+                    <div class="caption">
+                        <h3 style="font-family:'Yu Gothic UI'">@item.productname</h3>
+                        <h3 style="font-family:'Yu Gothic UI'">$@item.unitprice</h3>
+
+                        <p style="font-family:'Yu Gothic UI'">庫存數量: @item.unitstock</p>
+                        <p style="font-family:'Yu Gothic UI'">欲購買數量:<input value="1" id="@item.productid" name="quantity" type="number" max="@item.unitstock" min="0" /> </p>
+                        <p>
+                            <a onclick="aa(@item.productid,@item.productid)" href="javascript:void(0)" class="btn btn-danger " role="button" style="font-family:'Yu Gothic UI'">
+                                <i class="fa fa-shopping-cart" aria-hidden="true"></i>加入購物車
+                            </a>
+                            @Html.ActionLink("詳細資料", "Details", "products", new { id = item.productid }, new { @class = "btn btn-primary", @style = "font-family:'Yu Gothic UI'" })
+                          
+                        </p>
+                    </div>
+                </div>
+            </div>
+        }
+
+    }
+</div>

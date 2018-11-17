@@ -1,0 +1,104 @@
+﻿body {
+    padding-top: 50px;
+    padding-bottom: 20px;
+}
+
+/* Set padding to keep content from hitting the edges */
+.body-content {
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+/* Override the default bootstrap behavior where horizontal description lists 
+   will truncate terms that are too long to fit in the left column 
+*/
+.dl-horizontal dt {
+    white-space: normal;
+}
+
+/* Set width on the form input elements since they're 100% wide by default */
+input,
+select,
+textarea {
+    max-width: 280px;
+}
+
+.showdatialname {
+    font-family: 微軟正黑體;
+    font-size: 20px;
+    background-color: bisque;
+    width: 100%;
+    text-align: center
+}
+
+.aaa{
+    font-family: 微軟正黑體;
+    font-size: 20px;
+    background-color:chartreuse;
+    width: 100%;
+}
+
+.showdatialname1 {
+    font-family: 微軟正黑體;
+    font-size: 20px;
+
+    width: 100%;
+    text-align: center
+}
+.OnSalePrice {
+    font-weight: bold;
+    color: #CC0066;
+    display: block;
+    font-size: 14px;
+    margin: 0 11px;
+}
+.Name {
+    text-align: left;
+    width: 165px;
+    height: 35px;
+    font-size: 14px;
+    color: #000;
+    text-decoration: none;
+    font-weight: bold;
+    margin: 0 10px;
+    float: left;
+    line-height: 16px;
+}
+.Navigation {
+    border: 1px solid #ccc;
+    border-top-color: rgb(204, 204, 204);
+    border-top-style: solid;
+    border-top-width: 1px;
+    border-right-color: rgb(204, 204, 204);
+    border-right-style: solid;
+    border-right-width: 1px;
+    border-bottom-color: initial;
+    border-bottom-style: initial;
+    border-bottom-width: 0px;
+    border-left-color: rgb(204, 204, 204);
+    border-left-style: solid;
+    border-left-width: 1px;
+    border-image-source: initial;
+    border-image-slice: initial;
+    border-image-width: initial;
+    border-image-outset: initial;
+    border-image-repeat: initial;
+    border-bottom: 0px;
+    float: left;
+    margin: 10px 0 0 0;
+    width: 100%;
+}
+
+.right-sub-content {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    width: 75%;
+    float: left;
+    padding-left: 1.04167%;
+    padding-right: 1.04167%;
+    float: right;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+

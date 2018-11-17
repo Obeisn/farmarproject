@@ -1,0 +1,9 @@
+﻿@model farmarproject2.Models.product
+@if (Model.picture != null)
+{
+    <img src="@Url.Action("showphoto", "products", new { id = Model.productid })" style="height:320px;width:240px" />
+}
+else
+{
+    <img src="@Url.Content("~/image/No-image-available.jpg")" style="height:320px;width:240px" />
+}

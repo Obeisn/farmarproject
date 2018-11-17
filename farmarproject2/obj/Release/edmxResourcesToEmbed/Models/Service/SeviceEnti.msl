@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="farmarModel1StoreContainer" CdmEntityContainer="farmarEntities1">
+    <EntitySetMapping Name="ServiceLogin">
+      <EntityTypeMapping TypeName="farmarModel1.ServiceLogin">
+        <MappingFragment StoreEntitySet="ServiceLogin">
+          <ScalarProperty Name="ContentA" ColumnName="ContentA" />
+          <ScalarProperty Name="Type" ColumnName="Type" />
+          <ScalarProperty Name="LoginTime" ColumnName="LoginTime" />
+          <ScalarProperty Name="State" ColumnName="State" />
+          <ScalarProperty Name="userID" ColumnName="userID" />
+          <ScalarProperty Name="id" ColumnName="id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

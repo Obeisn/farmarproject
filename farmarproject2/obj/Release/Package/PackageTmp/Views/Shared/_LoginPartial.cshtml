@@ -1,0 +1,68 @@
+﻿@using Microsoft.AspNet.Identity
+@using farmarproject2.Controllers
+@if (Request.IsAuthenticated)
+{
+    using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
+    {
+        @Html.AntiForgeryToken()
+
+        <ul class="nav navbar-nav navbar-right" style="margin-right:30px;">
+            <li id="Cart" style="height:50px; width:100px;margin-right:15px;">
+                @Html.Partial("_CartPartial")
+            </li>
+            <li>
+                @{
+                    var T = TempName.name;
+                    if (T == null)
+                    {
+                        T = "A";
+                    }
+                    var T1 = TempName.username;
+                    if (T1 == null)
+                    {
+                        T1 = "A";
+                    }
+                }
+
+                <div class="dropdown">
+                    <img class="dropbtn" style=" border-radius: 50%;height:60px; width:60px;" src=@Url.Content("~/image/")@T />
+                    <div class="dropdown-content " style="text-align:center;">
+                        @Html.ActionLink(T1, "Index", "UserAccount", null, new { @style = "font-family:'微軟正黑體'" })
+                        @Html.ActionLink("買家訂單", "Orders", "Order", null, new { @style = "color:black;font-family:'微軟正黑體'" })
+     
+                        @Html.ActionLink("賣家訂單", "SearchOrderBySell", "Order", null, new { @style = "color:black;font-family:'微軟正黑體'" })
+                        @Html.ActionLink("我的賣場", "SoldDetails", "UserAccount", null, new { @style = "color:black;font-family:'微軟正黑體'" })
+                        @Html.ActionLink("後台管理", "FLogin", "Account", routeValues: null, htmlAttributes: new { @style = "color:black;font-family:'微軟正黑體'" })
+                        <a class="active" style="font-family:'微軟正黑體'" href="javascript:document.getElementById('logoutForm').submit()">登出</a>
+                    </div>
+                </div>
+            </li>
+
+
+
+
+        </ul>
+    }
+}
+else
+{
+    <ul class="nav navbar-nav">
+        <li id="lia" class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown" style="color:black;">
+                會員
+                <div class="caret"></div>
+            </a>
+            <ul id="ula" class="dropdown-menu">
+                <li>@Html.ActionLink("註冊", "Register", "Account", routeValues: null, htmlAttributes: new { @style = "color:black" })</li>
+                <li>
+                    @Html.ActionLink("登入", "Login", "Account", routeValues: null, htmlAttributes: new { @style = "color:black" })
+                </li>
+            </ul>
+        </li>
+    </ul>
+    <ul class="nav navbar-nav navbar-right" style="margin-right:30px;">
+        <li>
+            @Html.ActionLink("後台管理", "FLogin", "Account", routeValues: null, htmlAttributes: new { @style = "color:black" })
+        </li>
+    </ul>
+}

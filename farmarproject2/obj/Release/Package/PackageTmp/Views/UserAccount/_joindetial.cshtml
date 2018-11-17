@@ -1,0 +1,51 @@
+﻿@model IEnumerable<farmarproject2.Models.multi_buy_list>
+
+
+<table style="width:1030px;border:1px solid #ff6a00;text-align:center;margin:30px 0"rules=rows>
+    <tr style="background-color:coral;height:50px">
+        <th style="text-align:center">
+          @Html.Label("帳號")
+        </th>
+        <th style="text-align:center">
+            @Html.Label("訂購數量")  
+        </th>
+     
+        <th style="text-align:center">
+            @Html.Label("團購名稱")
+        </th>
+
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr style="height:60px">
+            <td>
+                @Html.DisplayFor(modelItem => item.join_id)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.amount)
+            </td>
+         
+            <td>
+                @Html.DisplayFor(modelItem => item.multi_buy.multi_buy_name)
+            </td>
+
+        </tr>
+    }
+
+</table>
+<div style="text-align:right" >
+    <button class="btn btn-success" id="joinback">返回</button>
+</div>
+<script>
+        $("#joinback").click(function () {
+        $.ajax({
+            type: "Get",
+            url: "@Url.Action("usermanybuy", "manybuy")"
+        }).done(function (data) {
+            $("#aa").html(data)
+            }).fail(function (e) {
+                alert(e.responseText)
+            })
+        })
+</script>
